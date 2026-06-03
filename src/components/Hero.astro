@@ -1,0 +1,54 @@
+---
+import { siteConfig } from '../data/site';
+
+const { h1, subtitle, tags, ledgerTitle, ledgerContent } = siteConfig.hero;
+---
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-tags">
+          {tags.map(tag => (
+            <span class="hero-tag">{tag}</span>
+          ))}
+        </div>
+        <h1>{h1}</h1>
+        <p class="hero-subtitle">{subtitle}</p>
+        <div class="hero-cta">
+          <a href={siteConfig.cta.doctor.href} class="btn btn-primary" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            {siteConfig.cta.doctor.label}
+          </a>
+          <a href={siteConfig.cta.register.href} class="btn btn-secondary" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="8.5" cy="7" r="4"></circle>
+              <line x1="20" y1="8" x2="20" y2="14"></line>
+              <line x1="23" y1="11" x2="17" y2="11"></line>
+            </svg>
+            {siteConfig.cta.register.label}
+          </a>
+        </div>
+      </div>
+      
+      <div class="ledger-card">
+        <div class="ledger-card-header">
+          <svg class="ledger-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            <line x1="8" y1="6" x2="16" y2="6"></line>
+            <line x1="8" y1="10" x2="14" y2="10"></line>
+          </svg>
+          <span class="ledger-card-title">{ledgerTitle}</span>
+        </div>
+        <div class="ledger-card-content">
+          <p>{ledgerContent}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

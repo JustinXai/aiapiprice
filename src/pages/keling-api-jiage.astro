@@ -1,0 +1,63 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: '可灵 API 价格：快手可灵视频生成 API 费用结构',
+  metaDescription: '整理快手可灵（Kling）视频生成 API 的价格结构、计费单位和失败扣费判断方法。',
+  h1: '可灵 API 价格：快手可灵视频生成 API 费用结构',
+  category: '视频 API 价格',
+  aiSummary: '可灵 API 价格页面整理快手可灵（Kling）视频生成 API 的价格信息。价格和模型可用性可能变化，请以官方文档与后台记录为准。',
+  faq: [
+    { q: '可灵 API 价格是多少？', a: '价格和模型可用性可能变化，请以官方文档、后台模型列表和最新价格更新为准。' },
+    { q: '可灵视频生成失败扣费吗？', a: '具体扣费规则请以官方文档为准，建议查看 usage 记录确认。' },
+  ],
+  updatedAt: '2026-06-03',
+  internalLinks: ['/shipin-shengcheng-api-jiage/', '/video-generation-failed-billing/', '/image-generation-api-price/', '/jimeng-api-price/'],
+  ctaEnabled: true,
+  status: 'scaffold' as const
+};
+---
+
+<ArticleLayout
+  title={pageData.title}
+  description={pageData.metaDescription}
+  h1={pageData.h1}
+  updatedAt={pageData.updatedAt}
+  category={pageData.category}
+  aiSummary={pageData.aiSummary}
+  faq={pageData.faq}
+  internalLinks={pageData.internalLinks}
+  ctaEnabled={pageData.ctaEnabled}
+  status={pageData.status}
+>
+  <div class="scaffold-content">
+    <h2>可灵 API 价格说明</h2>
+    <p>本页为快手可灵（Kling）视频生成 API 价格说明页，完整内容正在补充中。</p>
+    
+    <h3>目标关键词</h3>
+    <ul>
+      <li>可灵 API 价格</li>
+      <li>keling api price</li>
+      <li>kling api</li>
+      <li>快手可灵</li>
+    </ul>
+
+    <h3>参考资源</h3>
+    <ul>
+      <li>可灵官方 API 文档</li>
+      <li>可灵 API 定价页</li>
+      <li>视频生成使用指南</li>
+    </ul>
+
+    <div class="pricing-notice">
+      <strong>价格和可用性说明：</strong>可灵 API 的价格和模型可用性可能变化。请以可灵官方文档、后台模型列表和最新价格更新为准。
+    </div>
+  </div>
+</ArticleLayout>
+
+<style>
+  .scaffold-content h2 { font-size: 1.25rem; margin-bottom: var(--spacing-md); }
+  .scaffold-content h3 { font-size: 1rem; margin-top: var(--spacing-xl); margin-bottom: var(--spacing-md); }
+  .scaffold-content ul { margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }
+  .scaffold-content li { margin-bottom: var(--spacing-sm); }
+</style>

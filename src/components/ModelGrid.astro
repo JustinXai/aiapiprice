@@ -1,0 +1,19 @@
+---
+import { siteConfig } from '../data/site';
+
+const { models } = siteConfig;
+---
+
+<section class="model-section">
+  <div class="container">
+    <h2 class="section-title">按模型/平台查看价格</h2>
+    <div class="model-grid">
+      {models.map(model => (
+        <a href={model.href} class="model-card">
+          <h4>{model.name}</h4>
+          <p>{model.description}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

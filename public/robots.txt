@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aiapiprice.com/sitemap.xml
+
+# AI API 价格指南
+# 价格和模型可用性可能变化，请以官方文档与后台记录为准。

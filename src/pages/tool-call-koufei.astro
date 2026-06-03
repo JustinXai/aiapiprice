@@ -1,0 +1,62 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: 'Tool Call 扣费：工具调用如何影响 API 成本',
+  metaDescription: '解释 tool calls 对 API 成本的影响，包括 input/output token 消耗和成本优化建议。',
+  h1: 'Tool Call 扣费：工具调用如何影响 API 成本',
+  category: '扣费异常与小额测试',
+  aiSummary: 'Tool call 扣费页面解释工具调用如何影响 API 成本。价格和模型可用性可能变化，请以官方文档与后台记录为准。',
+  faq: [
+    { q: 'tool calls 会额外收费吗？', a: 'tool calls 会消耗额外的 token（input 和 output），从而增加成本。具体消耗量取决于工具参数和返回结果的大小。' },
+    { q: '如何减少 tool call 成本？', a: '可以：1. 精简工具参数；2. 减少不必要的工具调用；3. 合并多次小调用为一次大调用。' },
+  ],
+  updatedAt: '2026-06-03',
+  internalLinks: ['/claude-code-token-cost/', '/api-koufei-yichang/', '/request-failed-billing/', '/small-budget-api-test/'],
+  ctaEnabled: true,
+  status: 'scaffold' as const
+};
+---
+
+<ArticleLayout
+  title={pageData.title}
+  description={pageData.metaDescription}
+  h1={pageData.h1}
+  updatedAt={pageData.updatedAt}
+  category={pageData.category}
+  aiSummary={pageData.aiSummary}
+  faq={pageData.faq}
+  internalLinks={pageData.internalLinks}
+  ctaEnabled={pageData.ctaEnabled}
+  status={pageData.status}
+>
+  <div class="scaffold-content">
+    <h2>Tool Call 扣费说明</h2>
+    <p>本页为 Tool Call 扣费说明页，完整内容正在补充中。</p>
+    
+    <h3>目标关键词</h3>
+    <ul>
+      <li>tool call 扣费</li>
+      <li>工具调用 API 成本</li>
+      <li>function calling cost</li>
+    </ul>
+
+    <h3>参考资源</h3>
+    <ul>
+      <li>工具调用官方文档</li>
+      <li>usage 返回说明</li>
+      <li>token 计费规则</li>
+    </ul>
+
+    <div class="pricing-notice">
+      <strong>价格和可用性说明：</strong>Tool calls 的 token 计费规则可能因服务商而异。请以官方文档和 usage 记录为准。
+    </div>
+  </div>
+</ArticleLayout>
+
+<style>
+  .scaffold-content h2 { font-size: 1.25rem; margin-bottom: var(--spacing-md); }
+  .scaffold-content h3 { font-size: 1rem; margin-top: var(--spacing-xl); margin-bottom: var(--spacing-md); }
+  .scaffold-content ul { margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }
+  .scaffold-content li { margin-bottom: var(--spacing-sm); }
+</style>

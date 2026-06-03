@@ -1,0 +1,19 @@
+---
+import { siteConfig } from '../data/site';
+
+const { costTypes } = siteConfig;
+---
+
+<section class="cost-type-section">
+  <div class="container">
+    <h2 class="section-title">按成本类型查找</h2>
+    <div class="cost-type-grid">
+      {costTypes.map(ct => (
+        <a href={ct.href} class="cost-type-card">
+          <h4>{ct.name}</h4>
+          <p>{ct.description}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

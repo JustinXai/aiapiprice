@@ -1,0 +1,50 @@
+---
+interface Props {
+  internalLinks: string[];
+  externalConfigLink?: { label: string; url: string };
+}
+
+const { internalLinks, externalConfigLink } = Astro.props;
+
+const linkLabels: Record<string, string> = {
+  '/claude-code-token-cost/': 'Claude Code Token 成本',
+  '/openrouter-yue/': 'OpenRouter 余额',
+  '/shipin-shengcheng-api-jiage/': '视频生成 API 价格',
+  '/deepseek-api-price/': 'DeepSeek API 价格',
+  '/kimi-api-price/': 'Kimi API 价格',
+  '/qwen-api-price/': 'Qwen API 价格',
+  '/doubao-api-price/': '豆包 API 价格',
+  '/claude-api-price/': 'Claude API 价格',
+  '/gemini-api-price/': 'Gemini API 价格',
+  '/openai-api-usage/': 'OpenAI API usage',
+  '/openai-api-billing/': 'OpenAI API 账单',
+  '/api-koufei-yichang/': 'API 扣费异常',
+  '/request-failed-billing/': '请求失败扣费',
+  '/tool-call-koufei/': 'Tool Call 扣费',
+  '/streaming-interrupted-billing/': '流式中断扣费',
+  '/gpt-image-api-price/': 'GPT Image API 价格',
+  '/image-generation-api-price/': '图片生成 API 价格',
+  '/jimeng-api-price/': '即梦 API 价格',
+  '/keling-api-jiage/': '可灵 API 价格',
+  '/video-generation-failed-billing/': '视频生成失败扣费',
+  '/small-budget-api-test/': '小额测试流程',
+  '/tongyi-qianwen-api-price/': '通义千问 API 价格',
+};
+
+const formattedLinks = internalLinks.map(href => ({
+  href,
+  label: linkLabels[href] || href
+}));
+---
+
+<div class="related-links">
+  <h3>相关链接</h3>
+  <ul>
+    {formattedLinks.map(link => (
+      <li><a href={link.href}>{link.label}</a></li>
+    ))}
+    {externalConfigLink && (
+      <li><a href={externalConfigLink.url} target="_blank" rel="noopener">{externalConfigLink.label}</a></li>
+    )}
+  </ul>
+</div>

@@ -1,0 +1,125 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: 'OpenRouter 余额怎么扣：credits、usage 与 API Key 对账',
+  metaDescription: '解释 OpenRouter credits、usage、API Key 余额和模型调用扣费逻辑，帮助开发者用小额请求核对 usage 与余额变化。',
+  h1: 'OpenRouter 余额怎么扣：credits、usage 与 API Key 对账',
+  category: 'OpenRouter 与 API credits',
+  aiSummary: 'OpenRouter 余额页面解释 credits、usage、API Key 余额的扣除逻辑。credits 是预存余额，用于支付 API 调用；usage 记录实际消耗。不同模型定价不同，同一请求因 provider 路由、重试、失败处理等因素可能导致 credits 扣除与预期有差异。开发者应通过 credits 查询 API 和 usage 记录进行对账，核对每次请求的 request_id、模型名称、消耗量与余额变化。常见问题包括 no credits（余额不足）、401/403（认证/权限问题）、model not found（模型不可用）。建议先用小额请求测试，确认对账逻辑后再扩大规模。',
+  faq: [
+    { q: 'OpenRouter credits 和 usage 有什么区别？', a: 'credits 是账户预存余额，用于支付 API 调用费用；usage 是实际消耗记录。credits 扣除可能因服务商定价、折扣、失败请求处理等因素与 usage 有细微差异。建议对账时对比两者变化。' },
+    { q: '为什么余额消耗和预期不一致？', a: '可能原因：1. 不同模型定价不同；2. provider 路由导致价格波动；3. 重试请求会额外扣费；4. 失败请求处理规则不同；5. 缓存和压缩导致实际消耗与估算不同。' },
+    { q: 'no credits 是什么意思？', a: 'no credits 表示账户余额不足以支付请求费用。需要充值后再发起请求。注意：部分服务商对失败请求也可能有最低消费。' },
+    { q: '如何查询 OpenRouter credits 和 usage？', a: '可以通过 OpenRouter 的 API 端点查询 credits 余额和 usage 记录。建议保留每次请求的 request_id，结合后台记录进行对账。' },
+  ],
+  updatedAt: '2026-06-03',
+  internalLinks: ['/claude-code-token-cost/', '/request-failed-billing/', '/small-budget-api-test/', '/openai-api-usage/'],
+  externalConfigLink: { label: '进一步了解接入配置', url: 'https://aiapiradar.com/' },
+  ctaEnabled: true,
+  status: 'full' as const
+};
+---
+
+<ArticleLayout
+  title={pageData.title}
+  description={pageData.metaDescription}
+  h1={pageData.h1}
+  updatedAt={pageData.updatedAt}
+  category={pageData.category}
+  aiSummary={pageData.aiSummary}
+  faq={pageData.faq}
+  internalLinks={pageData.internalLinks}
+  externalConfigLink={pageData.externalConfigLink}
+  ctaEnabled={pageData.ctaEnabled}
+  status={pageData.status}
+>
+  <div class="article-content">
+    <h2>Quick Answer</h2>
+    <p>OpenRouter 的 credits 是预存余额，用于支付 API 调用费用；usage 是实际消耗记录。不同模型定价不同，重试和失败处理可能导致 credits 扣除与预期有差异。建议通过 credits 查询 API 和 usage 记录进行对账。</p>
+
+    <h2>适合谁</h2>
+    <ul>
+      <li>使用 OpenRouter 访问多个 AI 模型 API 的开发者</li>
+      <li>需要核对 credits 余额和 usage 记录的开发者</li>
+      <li>想要理解 OpenRouter 计费逻辑的用户</li>
+    </ul>
+
+    <h2>Credits 是什么</h2>
+    <p>Credits 是 OpenRouter 账户的预存余额，用于支付 API 调用费用。你可以把它理解为账户余额，每次 API 调用都会从中扣除相应费用。</p>
+    <p>Credits 获取方式：</p>
+    <ul>
+      <li>在线充值（信用卡等）</li>
+      <li>购买 credits 包</li>
+      <li>活动赠送（部分情况）</li>
+    </ul>
+
+    <h2>Usage 是什么</h2>
+    <p>Usage 是 OpenRouter 记录的实际 API 消耗，包括：</p>
+    <ul>
+      <li>每个请求的模型名称</li>
+      <li>输入和输出的 token 数量</li>
+      <li>请求时间戳</li>
+      <li>费用明细</li>
+    </ul>
+    <p>Usage 可以通过 OpenRouter API 的 /api/v1/users/credits 端点查询。</p>
+
+    <h2>如何查看 Credits / Usage</h2>
+    <p>查看 OpenRouter credits 和 usage 的方法：</p>
+    <ol>
+      <li>登录 OpenRouter 官网，进入 Dashboard</li>
+      <li>查看 Credits 余额页面</li>
+      <li>查看 Usage 记录页面</li>
+      <li>使用 API 端点查询：<code>GET /api/v1/users/credits</code></li>
+    </ol>
+
+    <h2>为什么余额消耗可能和预期不一致</h2>
+    <p>常见原因：</p>
+    <ul>
+      <li><strong>不同模型定价不同：</strong>Claude、GPT-4、Gemini 等模型价格差异很大</li>
+      <li><strong>Provider 路由：</strong>同一模型可能通过不同 provider 路由，价格会有波动</li>
+      <li><strong>重试请求：</strong>失败的请求如果自动重试，会额外扣费</li>
+      <li><strong>失败请求处理：</strong>部分服务商对失败请求也可能有最低消费</li>
+      <li><strong>缓存和压缩：</strong>上下文缓存可能导致实际消耗与估算不同</li>
+      <li><strong>时区和统计差异：</strong>余额和 usage 的统计时间可能略有不同</li>
+    </ul>
+
+    <h2>常见错误情况</h2>
+    <h3>No Credits</h3>
+    <p>表示账户余额不足以支付请求费用。解决方法：充值 credits。</p>
+
+    <h3>401 Unauthorized</h3>
+    <p>API Key 无效或已过期。解决方法：检查 API Key 是否正确，或生成新的 Key。</p>
+
+    <h3>403 Forbidden</h3>
+    <p>API Key 没有权限访问请求的模型。解决方法：检查模型权限设置。</p>
+
+    <h3>Model Not Found</h3>
+    <p>请求的模型在 OpenRouter 上不可用。解决方法：检查模型名称是否正确，或查看可用的模型列表。</p>
+
+    <h2>小额测试 Checklist</h2>
+    <ol>
+      <li>确认 API Key 有足够的 credits</li>
+      <li>检查目标模型是否可用</li>
+      <li>先发一个最小化请求</li>
+      <li>记录 request_id</li>
+      <li>查看 usage 返回</li>
+      <li>对比 credits 余额变化</li>
+      <li>确认无误后再扩大调用</li>
+    </ol>
+
+    <h2>如何综合判断扣费</h2>
+    <p>对账流程：</p>
+    <ol>
+      <li>记录每次请求的 request_id</li>
+      <li>查看 API 返回的 usage 信息</li>
+      <li>登录 OpenRouter 后台，查看 credits 余额</li>
+      <li>对比 usage 记录和 credits 变化</li>
+      <li>如有差异，查看是否有重试或失败请求</li>
+    </ol>
+
+    <div class="pricing-notice">
+      <strong>价格和可用性说明：</strong>OpenRouter 的 credits 扣除和 usage 记录可能因服务商定价、provider 路由、失败处理等因素而有细微差异。建议定期对账，以 OpenRouter 后台记录为准。
+    </div>
+  </div>
+</ArticleLayout>

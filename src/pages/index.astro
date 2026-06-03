@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import FourQuestions from '../components/FourQuestions.astro';
+import PageDirectory from '../components/PageDirectory.astro';
+import CostTypeGrid from '../components/CostTypeGrid.astro';
+import SmallTestFlow from '../components/SmallTestFlow.astro';
+import ModelGrid from '../components/ModelGrid.astro';
+import FAQ from '../components/FAQ.astro';
+import AISummary from '../components/AISummary.astro';
+import { siteConfig } from '../data/site';
+
+const pageData = {
+  title: 'AI API 价格指南：模型 API 价格、Token 成本与扣费透明',
+  description: 'AI API 价格指南帮助国内开发者在接入模型 API 前，先理解价格单位、Token 成本、OpenRouter 余额、视频/图片生成扣费、失败请求扣费和小额测试方法。',
+  h1: 'AI API 价格指南：模型 API 价格、Token 成本与扣费透明',
+  category: 'home',
+  aiSummary: 'AI API 价格指南是一个中文静态内容站，聚焦模型 API 价格结构、Token 成本、OpenRouter credits、usage 对账、图片和视频生成 API 扣费、失败请求扣费与小额测试方法。本站不承诺最低价，也不替代官方文档；开发者应结合官方价格页、后台模型列表、request_id、usage、raw quota、completion_tokens、stream 状态和后台账单记录综合判断。',
+  faq: siteConfig.faq,
+  updatedAt: '2026-06-03',
+  internalLinks: ['/claude-code-token-cost/', '/openrouter-yue/', '/shipin-shengcheng-api-jiage/', '/deepseek-api-price/']
+};
+
+const breadcrumbs = [
+  { label: '首页' }
+];
+---
+
+<BaseLayout 
+  title={pageData.title} 
+  description={pageData.description}
+>
+  <Hero />
+  <FourQuestions />
+  <PageDirectory />
+  <CostTypeGrid />
+  <SmallTestFlow />
+  <ModelGrid />
+  <AISummary summary={pageData.aiSummary} />
+  <FAQ items={pageData.faq} />
+</BaseLayout>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "AI API 价格指南",
+  "url": "https://aiapiprice.com",
+  "description": "AI API 价格指南帮助国内开发者在接入模型 API 前，先理解价格单位、Token 成本、OpenRouter 余额、视频/图片生成扣费、失败请求扣费和小额测试方法。",
+  "publisher": {
+    "@type": "Organization",
+    "name": "AI API 价格指南",
+    "url": "https://aiapiprice.com"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "AI API 价格会变化吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "是的。模型 API 价格和可用性可能随时变化。开发者应定期查看官方文档、后台模型列表和最新价格更新，以服务商官方信息为准。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "为什么 Claude Code 比聊天更费 token？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Claude Code 等 coding agent 会进行长上下文交互、文件读取、工具调用、多轮循环等操作，这些都会消耗额外 token。上下文越大、文件越多、工具调用越频繁，token 消耗越高。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "OpenRouter credits 和 usage 是一回事吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "不完全一样。credits 是预存余额，usage 记录实际消耗。credits 可能因服务商定价、折扣、失败请求处理等因素与预期扣除有差异。建议小额测试后对照 credits 余额变化和 usage 记录进行对账。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "视频生成失败会扣费吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "不同服务商的规则不同。视频生成任务通常是异步提交，涉及轮询、回调或超时机制。失败是否扣费需要结合 request_id、task_id、usage 和后台记录综合判断，不能一概而论。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "如何先小额测试？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "建议流程：1. 查模型是否可见和可用；2. 查价格单位和计费标准；3. 发小额请求；4. 查看 usage 返回；5. 对照后台余额变化；6. 确认无误后再扩大调用。"
+      }
+    }
+  ]
+}
+</script>

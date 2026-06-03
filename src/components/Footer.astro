@@ -1,0 +1,66 @@
+---
+import { siteConfig } from '../data/site';
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-section">
+        <h4>核心内容</h4>
+        <ul>
+          <li><a href="/claude-code-token-cost/">Claude Code Token 成本</a></li>
+          <li><a href="/openrouter-yue/">OpenRouter 余额</a></li>
+          <li><a href="/shipin-shengcheng-api-jiage/">视频生成 API 价格</a></li>
+          <li><a href="/small-budget-api-test/">小额测试流程</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>模型价格</h4>
+        <ul>
+          <li><a href="/deepseek-api-price/">DeepSeek API 价格</a></li>
+          <li><a href="/kimi-api-price/">Kimi API 价格</a></li>
+          <li><a href="/qwen-api-price/">Qwen API 价格</a></li>
+          <li><a href="/claude-api-price/">Claude API 价格</a></li>
+          <li><a href="/gemini-api-price/">Gemini API 价格</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>扣费问题</h4>
+        <ul>
+          <li><a href="/api-koufei-yichang/">API 扣费异常</a></li>
+          <li><a href="/request-failed-billing/">请求失败扣费</a></li>
+          <li><a href="/tool-call-koufei/">Tool Call 扣费</a></li>
+          <li><a href="/streaming-interrupted-billing/">流式中断扣费</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>相关工具</h4>
+        <ul>
+          <li><a href="https://aiapidoctor.com/" target="_blank" rel="noopener">AI API Doctor 检测</a></li>
+          <li><a href="https://api1.link-ai.cc/register" target="_blank" rel="noopener">注册 LinkAI</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-disclaimer">
+      <p>免责声明：AI API 价格指南（aiapiprice.com）是一个中文价格/成本/扣费透明内容站，帮助开发者理解 API 价格结构和计费逻辑。</p>
+      <p>价格和模型可用性可能随时变化。请以服务商官方文档、后台模型列表、usage 记录和账单为准。本站不承诺最低价，也不替代官方文档。</p>
+      <p>扣费判断需要结合 request_id、usage、raw quota、completion_tokens、stream 状态和后台账单记录综合分析。</p>
+    </div>
+    
+    <div class="footer-copyright">
+      {siteConfig.copyright}
+    </div>
+  </div>
+</footer>
+
+<style>
+  @media (max-width: 768px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,23 @@
+# 发布门禁规则
+
+## 发布前必须完成
+
+1. 读规则文件
+2. 本地构建通过
+3. 所有 validators 通过
+4. 生产部署完成
+5. Live check 通过
+
+## 验证命令
+
+```bash
+npm run build
+npm run verify
+SITE_URL=https://aiapiprice.com npm run verify:live
+```
+
+## 不允许
+
+- 只凭本地报告说 "Done"
+- 跳过 live check
+- 未完成就报告完成

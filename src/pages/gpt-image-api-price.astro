@@ -1,0 +1,63 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: 'GPT Image API 价格：DALL-E 3 图片生成 API 费用',
+  metaDescription: '解释 OpenAI DALL-E 3 图片生成 API 的价格结构、计费单位和扣费判断。',
+  h1: 'GPT Image API 价格：DALL-E 3 图片生成 API 费用',
+  category: '图像 API 价格',
+  aiSummary: 'GPT Image API 价格页面整理 DALL-E 3 图片生成 API 的价格信息。价格和模型可用性可能变化，请以官方文档与后台记录为准。',
+  faq: [
+    { q: 'DALL-E 3 按什么计费？', a: 'DALL-E 3 通常按生成的图片数量和分辨率计费。具体费率请以官方定价为准。' },
+    { q: '生成失败会扣费吗？', a: '具体扣费规则请以官方文档为准，建议查看 usage 记录确认。' },
+  ],
+  updatedAt: '2026-06-03',
+  internalLinks: ['/image-generation-api-price/', '/jimeng-api-price/', '/openai-api-usage/', '/shipin-shengcheng-api-jiage/'],
+  ctaEnabled: true,
+  status: 'scaffold' as const
+};
+---
+
+<ArticleLayout
+  title={pageData.title}
+  description={pageData.metaDescription}
+  h1={pageData.h1}
+  updatedAt={pageData.updatedAt}
+  category={pageData.category}
+  aiSummary={pageData.aiSummary}
+  faq={pageData.faq}
+  internalLinks={pageData.internalLinks}
+  ctaEnabled={pageData.ctaEnabled}
+  status={pageData.status}
+>
+  <div class="scaffold-content">
+    <h2>DALL-E 3 API 价格说明</h2>
+    <p>本页为 DALL-E 3 图片生成 API 价格说明页，完整内容正在补充中。</p>
+    
+    <h3>目标关键词</h3>
+    <ul>
+      <li>DALL-E API 价格</li>
+      <li>GPT Image API</li>
+      <li>dalle 3 price</li>
+      <li>OpenAI 图片生成 API</li>
+    </ul>
+
+    <h3>参考资源</h3>
+    <ul>
+      <li>OpenAI DALL-E 官方文档</li>
+      <li>OpenAI 图片 API 定价</li>
+      <li>图片生成使用指南</li>
+    </ul>
+
+    <div class="pricing-notice">
+      <strong>价格和可用性说明：</strong>DALL-E API 的价格和可用性可能变化。请以 OpenAI 官方文档和后台记录为准。
+    </div>
+  </div>
+</ArticleLayout>
+
+<style>
+  .scaffold-content h2 { font-size: 1.25rem; margin-bottom: var(--spacing-md); }
+  .scaffold-content h3 { font-size: 1rem; margin-top: var(--spacing-xl); margin-bottom: var(--spacing-md); }
+  .scaffold-content ul { margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }
+  .scaffold-content li { margin-bottom: var(--spacing-sm); }
+</style>

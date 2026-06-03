@@ -1,0 +1,32 @@
+{
+  "name": "aiapiprice",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "generate:sitemap": "node scripts/build-sitemap.mjs",
+    "generate:llms": "node scripts/build-llms.mjs",
+    "validate:title-meta-h1": "node scripts/validate-title-meta-h1.mjs",
+    "validate:canonical": "node scripts/validate-canonical.mjs",
+    "validate:placeholders": "node scripts/validate-placeholders.mjs",
+    "validate:claims": "node scripts/validate-claims.mjs",
+    "validate:cta": "node scripts/validate-cta-urls.mjs",
+    "validate:sitemap-llms": "node scripts/validate-sitemap-llms.mjs",
+    "validate:pricing-freshness": "node scripts/validate-pricing-freshness.mjs",
+    "validate:official-wording": "node scripts/validate-official-wording.mjs",
+    "validate:prompt-residue": "node scripts/validate-prompt-residue.mjs",
+    "validate:cross-project": "node scripts/validate-cross-project-contamination.mjs",
+    "validate:jsonld": "node scripts/validate-jsonld.mjs",
+    "verify": "npm run build && npm run validate:title-meta-h1 && npm run validate:canonical && npm run validate:placeholders && npm run validate:claims && npm run validate:cta && npm run validate:sitemap-llms && npm run validate:pricing-freshness && npm run validate:official-wording && npm run validate:prompt-residue && npm run validate:cross-project && npm run validate:jsonld",
+    "verify:live": "node scripts/verify-live.mjs"
+  },
+  "dependencies": {
+    "astro": "^6.4.3"
+  }
+}

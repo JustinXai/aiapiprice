@@ -1,0 +1,62 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: 'Qwen API 价格：通义千问 Qwen 系列模型 API 费用',
+  metaDescription: '整理通义千问 Qwen 系列模型的 API 价格结构、Token 计费单位和成本优化建议。',
+  h1: 'Qwen API 价格：通义千问 Qwen 系列模型 API 费用',
+  category: '模型 API 价格',
+  aiSummary: 'Qwen API 价格页面整理通义千问 Qwen 系列模型的 API 价格信息。价格和模型可用性可能变化，请以官方文档与后台记录为准。',
+  faq: [
+    { q: 'Qwen API 价格是多少？', a: '价格和模型可用性可能变化，请以官方文档、后台模型列表和最新价格更新为准。' },
+    { q: 'Qwen 支持哪些版本？', a: '具体支持的模型版本和可用性请以官方文档为准。' },
+  ],
+  updatedAt: '2026-06-03',
+  internalLinks: ['/deepseek-api-price/', '/kimi-api-price/', '/tongyi-qianwen-api-price/', '/claude-code-token-cost/'],
+  ctaEnabled: true,
+  status: 'scaffold' as const
+};
+---
+
+<ArticleLayout
+  title={pageData.title}
+  description={pageData.metaDescription}
+  h1={pageData.h1}
+  updatedAt={pageData.updatedAt}
+  category={pageData.category}
+  aiSummary={pageData.aiSummary}
+  faq={pageData.faq}
+  internalLinks={pageData.internalLinks}
+  ctaEnabled={pageData.ctaEnabled}
+  status={pageData.status}
+>
+  <div class="scaffold-content">
+    <h2>Qwen API 价格说明</h2>
+    <p>本页为通义千问 Qwen API 价格结构说明页，完整内容正在补充中。</p>
+    
+    <h3>目标关键词</h3>
+    <ul>
+      <li>Qwen API 价格</li>
+      <li>qwen api price</li>
+      <li>通义千问 API</li>
+    </ul>
+
+    <h3>参考资源</h3>
+    <ul>
+      <li>通义千问官方 API 文档</li>
+      <li>通义千问后台模型列表</li>
+      <li>最新价格更新公告</li>
+    </ul>
+
+    <div class="pricing-notice">
+      <strong>价格和可用性说明：</strong>Qwen API 的价格和模型可用性可能变化。请以通义千问官方文档、后台模型列表和最新价格更新为准。扣费判断需要结合 request_id、usage 和后台账单记录综合分析。
+    </div>
+  </div>
+</ArticleLayout>
+
+<style>
+  .scaffold-content h2 { font-size: 1.25rem; margin-bottom: var(--spacing-md); }
+  .scaffold-content h3 { font-size: 1rem; margin-top: var(--spacing-xl); margin-bottom: var(--spacing-md); }
+  .scaffold-content ul { margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }
+  .scaffold-content li { margin-bottom: var(--spacing-sm); }
+</style>

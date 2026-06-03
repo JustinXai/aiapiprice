@@ -1,0 +1,23 @@
+---
+import { siteConfig } from '../data/site';
+
+const { smallTestFlow } = siteConfig;
+---
+
+<section class="small-test-section">
+  <div class="container">
+    <h2 class="section-title">小额测试流程</h2>
+    <p class="text-secondary mb-lg">在扩大调用前，建议按以下流程小额测试，核对扣费情况。</p>
+    <div class="small-test-flow">
+      {smallTestFlow.map(step => (
+        <div class="flow-step">
+          <div class="flow-step-number">{step.step}</div>
+          <div class="flow-step-content">
+            <h4>{step.title}</h4>
+            <p>{step.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

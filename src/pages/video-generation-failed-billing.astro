@@ -1,0 +1,63 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: '视频生成失败扣费：异步任务失败、超时、重试扣费判断',
+  metaDescription: '解释视频生成 API 异步任务失败、超时、重试时的扣费判断方法和解决建议。',
+  h1: '视频生成失败扣费：异步任务失败、超时、重试扣费判断',
+  category: '视频 API 价格',
+  aiSummary: '视频生成失败扣费页面解释异步任务失败时的扣费规则。价格和模型可用性可能变化，请以官方文档与后台记录为准。',
+  faq: [
+    { q: '视频生成任务超时了怎么办？', a: '建议：1. 查看任务状态；2. 确认是否已部分完成；3. 检查 usage 记录；4. 如需重试，注意重试可能产生额外费用。' },
+    { q: '视频生成失败会收费吗？', a: '不同服务商规则不同。建议保留完整的任务记录、request_id、task_id 和 usage 信息以便对账。' },
+  ],
+  updatedAt: '2026-06-03',
+  internalLinks: ['/shipin-shengcheng-api-jiage/', '/keling-api-jiage/', '/request-failed-billing/', '/streaming-interrupted-billing/'],
+  ctaEnabled: true,
+  status: 'scaffold' as const
+};
+---
+
+<ArticleLayout
+  title={pageData.title}
+  description={pageData.metaDescription}
+  h1={pageData.h1}
+  updatedAt={pageData.updatedAt}
+  category={pageData.category}
+  aiSummary={pageData.aiSummary}
+  faq={pageData.faq}
+  internalLinks={pageData.internalLinks}
+  ctaEnabled={pageData.ctaEnabled}
+  status={pageData.status}
+>
+  <div class="scaffold-content">
+    <h2>视频生成失败扣费说明</h2>
+    <p>本页为视频生成失败扣费判断说明页，完整内容正在补充中。</p>
+    
+    <h3>目标关键词</h3>
+    <ul>
+      <li>视频生成失败扣费</li>
+      <li>视频 API 超时</li>
+      <li>异步任务扣费</li>
+      <li>视频重试扣费</li>
+    </ul>
+
+    <h3>参考资源</h3>
+    <ul>
+      <li>视频 API 官方文档</li>
+      <li>异步任务处理指南</li>
+      <li>任务状态查询说明</li>
+    </ul>
+
+    <div class="pricing-notice">
+      <strong>价格和可用性说明：</strong>不同服务商对视频生成失败的扣费规则不同。请以官方文档和后台账单记录为准。
+    </div>
+  </div>
+</ArticleLayout>
+
+<style>
+  .scaffold-content h2 { font-size: 1.25rem; margin-bottom: var(--spacing-md); }
+  .scaffold-content h3 { font-size: 1rem; margin-top: var(--spacing-xl); margin-bottom: var(--spacing-md); }
+  .scaffold-content ul { margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }
+  .scaffold-content li { margin-bottom: var(--spacing-sm); }
+</style>

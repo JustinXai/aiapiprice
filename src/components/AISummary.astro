@@ -1,0 +1,14 @@
+---
+interface Props {
+  summary: string;
+}
+
+const { summary } = Astro.props;
+---
+
+<section class="ai-summary-section">
+  <div class="container-narrow">
+    <div class="ai-summary-label">AI Summary / GEO</div>
+    <p class="ai-summary-content">{summary}</p>
+  </div>
+</section>

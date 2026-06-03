@@ -1,0 +1,29 @@
+---
+import { siteConfig } from '../data/site';
+
+const { categories } = siteConfig;
+---
+
+<section class="directory-section">
+  <div class="container">
+    <h2 class="section-title">一级栏目目录</h2>
+    <div class="directory-grid">
+      {categories.map(cat => (
+        <div class="directory-card">
+          <div class="directory-card-header">
+            <h3><a href={`/${cat.slug}/`}>{cat.name}</a></h3>
+          </div>
+          <div class="directory-card-body">
+            <p>{cat.description}</p>
+            <div class="directory-card-links">
+              {cat.pages.slice(0, 3).map(page => {
+                const pageSlug = page.replace(/\//g, '');
+                return <a href={page}>{pageSlug.replace(/-/g, ' ')}</a>;
+              })}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,53 @@
+---
+import { siteConfig } from '../data/site';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="/" class="header-logo">{siteConfig.name}</a>
+    <nav class="header-nav">
+      {siteConfig.navigation.map(item => (
+        <a 
+          href={item.href} 
+          class={currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href)) ? 'active' : ''}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+    <div class="header-mobile-toggle">
+      <button class="mobile-menu-btn" aria-label="菜单">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header-mobile-toggle {
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    .header-nav {
+      display: none;
+    }
+    
+    .header-mobile-toggle {
+      display: block;
+    }
+    
+    .mobile-menu-btn {
+      background: none;
+      border: none;
+      padding: var(--spacing-sm);
+      color: var(--color-text);
+    }
+  }
+</style>

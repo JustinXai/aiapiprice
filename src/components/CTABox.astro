@@ -1,0 +1,33 @@
+---
+import { siteConfig } from '../data/site';
+---
+
+<div class="cta-box">
+  <h4>开始测试前，建议先做 API 检测</h4>
+  <p>不确定 API 是否可用、是否会扣费？先用 AI API Doctor 检测 Base URL、API Key、模型权限和 usage 返回情况。</p>
+  <a href={siteConfig.cta.doctor.href} class="btn btn-primary" target="_blank" rel="noopener">
+    {siteConfig.cta.doctor.label}
+  </a>
+  <a href={siteConfig.cta.register.href} class="btn btn-secondary" target="_blank" rel="noopener">
+    {siteConfig.cta.register.label}
+  </a>
+</div>
+
+<div class="cta-box cta-register">
+  <h4>注册 LinkAI，小额测试模型扣费</h4>
+  <p>注册 LinkAI，领取 $2 免费福利，用小额余额测试模型、usage 和扣费记录。</p>
+  <a href={siteConfig.cta.register.href} class="btn btn-primary" target="_blank" rel="noopener">
+    {siteConfig.cta.register.label}
+  </a>
+</div>
+
+<style>
+  .cta-register {
+    background-color: var(--color-bg-subtle);
+    border-color: var(--color-border);
+  }
+  
+  .cta-register h4 {
+    color: var(--color-text);
+  }
+</style>

@@ -1,0 +1,114 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: '视频生成 API 价格：文生视频、图生视频与失败扣费怎么判断',
+  metaDescription: '解释视频生成 API 常见计费单位，包括秒、credit、任务、分辨率、音频、重试、超时和失败生成扣费判断方法。',
+  h1: '视频生成 API 价格：文生视频、图生视频与失败扣费怎么判断',
+  category: '视频 API 价格',
+  aiSummary: '视频生成 API 价格页面解释文生视频和图生视频的计费逻辑。视频生成 API 通常比文本 API 复杂，可能按秒、credit、任务、分辨率、音频、重试等不同维度计费。视频任务通常是异步的，涉及提交、轮询、回调或超时机制。失败是否扣费取决于服务商规则：部分对失败任务不收费，部分可能有最低消费或超时费用。判断扣费需要结合 request_id、task_id、usage、后台任务状态和账单记录综合分析，不能仅凭请求成功/失败状态判断。',
+  faq: [
+    { q: '视频生成 API 按什么单位计费？', a: '不同服务商计费单位不同。常见计费维度包括：按秒（视频时长）、按 credit（消耗额度）、按任务（每个生成任务）、按分辨率（高清/4K 等）、按音频（是否含音乐）。具体计费标准请以官方文档为准。' },
+    { q: '文生视频和图生视频价格一样吗？', a: '通常不一样。图生视频（image-to-video）需要额外处理输入图像，技术成本更高，所以价格一般高于纯文生视频（text-to-video）。具体价格差异请参考各服务商的价目表。' },
+    { q: '视频生成失败会扣费吗？', a: '不同服务商的规则不同。部分服务商对失败的生成任务不收费，部分可能有最低消费或超时费用。判断依据包括：request_id、task_id、usage 记录、后台任务状态。建议保留失败任务的完整记录以便对账。' },
+    { q: '异步任务超时了怎么办？', a: '视频生成是异步任务，有超时限制。如果任务超时未完成，可能需要重试。超时是否扣费取决于服务商规则，建议查看官方文档的超时处理说明，并保留超时记录进行对账。' },
+  ],
+  updatedAt: '2026-06-03',
+  internalLinks: ['/image-generation-api-price/', '/keling-api-jiage/', '/jimeng-api-price/', '/video-generation-failed-billing/'],
+  externalConfigLink: { label: '进一步了解接入配置', url: 'https://aiapiradar.com/' },
+  ctaEnabled: true,
+  status: 'full' as const
+};
+---
+
+<ArticleLayout
+  title={pageData.title}
+  description={pageData.metaDescription}
+  h1={pageData.h1}
+  updatedAt={pageData.updatedAt}
+  category={pageData.category}
+  aiSummary={pageData.aiSummary}
+  faq={pageData.faq}
+  internalLinks={pageData.internalLinks}
+  externalConfigLink={pageData.externalConfigLink}
+  ctaEnabled={pageData.ctaEnabled}
+  status={pageData.status}
+>
+  <div class="article-content">
+    <h2>Quick Answer</h2>
+    <p>视频生成 API 通常比文本 API 更复杂，可能按秒、credit、任务、分辨率、音频、重试等维度计费。视频任务是异步的，失败是否扣费取决于服务商规则。建议结合 request_id、task_id、usage 和后台记录综合判断。</p>
+
+    <h2>适合谁</h2>
+    <ul>
+      <li>使用视频生成 API（DALL-E Video、可灵、即梦等）的开发者</li>
+      <li>需要理解视频 API 计费逻辑的用户</li>
+      <li>想要排查视频生成扣费异常的开发者</li>
+    </ul>
+
+    <h2>视频 API 常见计费单位</h2>
+    <p>不同服务商的计费单位可能不同：</p>
+    <ul>
+      <li><strong>按秒计费：</strong>根据生成的视频时长计费</li>
+      <li><strong>按 credit 计费：</strong>每个任务消耗固定或按视频参数计算的 credits</li>
+      <li><strong>按任务计费：</strong>每个生成任务有固定价格</li>
+      <li><strong>按分辨率计费：</strong>高清、4K 等分辨率价格不同</li>
+      <li><strong>按音频计费：</strong>是否包含背景音乐或音效</li>
+      <li><strong>按重试计费：</strong>失败重试可能产生额外费用</li>
+    </ul>
+
+    <h2>文生视频 vs 图生视频成本差异</h2>
+    <p>通常图生视频（image-to-video）比文生视频（text-to-video）更贵，因为需要额外处理输入图像。技术复杂度更高，所以价格一般高于纯文生视频。</p>
+    <p>具体价格差异请参考各服务商的价目表。</p>
+
+    <h2>异步任务解释</h2>
+    <p>视频生成通常是异步任务，工作流程：</p>
+    <ol>
+      <li><strong>提交任务：</strong>发送生成请求，获得 task_id</li>
+      <li><strong>轮询状态：</strong>定期查询任务状态</li>
+      <li><strong>回调通知：</strong>部分 API 支持回调 URL 通知</li>
+      <li><strong>获取结果：</strong>任务完成后获取视频 URL 或下载链接</li>
+      <li><strong>超时处理：</strong>设置合理的超时时间</li>
+    </ol>
+
+    <h2>失败生成、重试、超时是否扣费</h2>
+    <p>判断方法：</p>
+    <ul>
+      <li><strong>查看任务状态：</strong>确认任务是否实际执行</li>
+      <li><strong>查看 usage 记录：</strong>API 返回的消耗记录</li>
+      <li><strong>查看 request_id：</strong>用于对账的唯一标识</li>
+      <li><strong>查看后台账单：</strong>服务商的官方账单记录</li>
+    </ul>
+    <p>不同服务商规则不同：</p>
+    <ul>
+      <li>部分对失败任务不收费</li>
+      <li>部分可能有最低消费</li>
+      <li>超时费用规则各异</li>
+      <li>重试可能产生额外费用</li>
+    </ul>
+
+    <h2>小额测试 Checklist</h2>
+    <ol>
+      <li>查看服务商文档，确认计费单位</li>
+      <li>先发一个最短视频的测试请求</li>
+      <li>记录 task_id 和 request_id</li>
+      <li>等待任务完成，查看 status</li>
+      <li>查看 usage 返回</li>
+      <li>对照后台余额变化</li>
+      <li>确认失败场景的扣费规则</li>
+    </ol>
+
+    <h2>如何综合判断扣费</h2>
+    <p>对账要点：</p>
+    <ul>
+      <li><strong>request_id：</strong>每次 API 请求的唯一标识</li>
+      <li><strong>task_id：</strong>视频生成任务的唯一标识</li>
+      <li><strong>usage 记录：</strong>API 返回的消耗明细</li>
+      <li><strong>后台任务状态：</strong>服务商后台显示的任务状态</li>
+      <li><strong>账单记录：</strong>实际的费用扣除记录</li>
+    </ul>
+
+    <div class="pricing-notice">
+      <strong>价格和可用性说明：</strong>视频生成 API 的价格和可用性可能变化。失败、重试、超时的扣费规则因服务商而异。请以官方文档、后台任务状态和账单记录为准。
+    </div>
+  </div>
+</ArticleLayout>

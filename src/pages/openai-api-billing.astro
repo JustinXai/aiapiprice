@@ -1,0 +1,62 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: 'OpenAI API 账单：理解 OpenAI 账单结构与扣费逻辑',
+  metaDescription: '解释 OpenAI API 账单的结构、扣费逻辑、计费周期和对账方法。',
+  h1: 'OpenAI API 账单：理解 OpenAI 账单结构与扣费逻辑',
+  category: 'OpenAI API 账单与 usage',
+  aiSummary: 'OpenAI API 账单页面解释账单结构和扣费逻辑。价格和模型可用性可能变化，请以官方文档与后台记录为准。',
+  faq: [
+    { q: 'OpenAI 的计费周期是什么？', a: '具体计费周期请以 OpenAI 官方说明为准。' },
+    { q: '如何核对 OpenAI 账单？', a: '建议对比 usage API 返回的消耗记录和后台账单，如有疑问可联系 OpenAI 支持。' },
+  ],
+  updatedAt: '2026-06-03',
+  internalLinks: ['/openai-api-usage/', '/gpt-image-api-price/', '/api-koufei-yichang/', '/openrouter-yue/'],
+  ctaEnabled: true,
+  status: 'scaffold' as const
+};
+---
+
+<ArticleLayout
+  title={pageData.title}
+  description={pageData.metaDescription}
+  h1={pageData.h1}
+  updatedAt={pageData.updatedAt}
+  category={pageData.category}
+  aiSummary={pageData.aiSummary}
+  faq={pageData.faq}
+  internalLinks={pageData.internalLinks}
+  ctaEnabled={pageData.ctaEnabled}
+  status={pageData.status}
+>
+  <div class="scaffold-content">
+    <h2>OpenAI API 账单说明</h2>
+    <p>本页为 OpenAI API 账单结构说明页，完整内容正在补充中。</p>
+    
+    <h3>目标关键词</h3>
+    <ul>
+      <li>OpenAI API 账单</li>
+      <li>openai billing</li>
+      <li>OpenAI 扣费</li>
+    </ul>
+
+    <h3>参考资源</h3>
+    <ul>
+      <li>OpenAI 账单页面</li>
+      <li>OpenAI API 定价</li>
+      <li>OpenAI 使用政策</li>
+    </ul>
+
+    <div class="pricing-notice">
+      <strong>价格和可用性说明：</strong>OpenAI API 的价格和账单规则可能变化。请以 OpenAI 官方文档和后台账单记录为准。
+    </div>
+  </div>
+</ArticleLayout>
+
+<style>
+  .scaffold-content h2 { font-size: 1.25rem; margin-bottom: var(--spacing-md); }
+  .scaffold-content h3 { font-size: 1rem; margin-top: var(--spacing-xl); margin-bottom: var(--spacing-md); }
+  .scaffold-content ul { margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }
+  .scaffold-content li { margin-bottom: var(--spacing-sm); }
+</style>
