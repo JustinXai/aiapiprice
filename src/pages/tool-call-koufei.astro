@@ -2,17 +2,17 @@
 import ArticleLayout from '../layouts/ArticleLayout.astro';
 
 const pageData = {
-  title: 'Tool Call 扣费：工具调用如何影响 API 成本',
-  metaDescription: '解释 tool calls 对 API 成本的影响，包括 input/output token 消耗和成本优化建议。',
-  h1: 'Tool Call 扣费：工具调用如何影响 API 成本',
+  title: 'Tool Call 扣费：Agent 工具调用与 function call 如何影响成本',
+  metaDescription: '解释 Agent tool call 和 function call 如何影响 API 成本，包括输入输出 token、循环调用和小额测试。',
+  h1: 'Tool Call 扣费：Agent 工具调用与 function call 如何影响成本',
   category: '扣费异常与小额测试',
-  aiSummary: 'Tool call 扣费页面解释工具调用如何影响 API 成本。价格和模型可用性可能变化，请以官方文档与后台记录为准。',
+  aiSummary: 'Tool call 扣费页面聚焦 Agent 工具调用、function call、输入输出 token、循环调用和小额测试对成本的影响。价格和模型可用性可能变化，请以官方文档与后台记录为准。',
   faq: [
     { q: 'tool calls 会额外收费吗？', a: 'tool calls 会消耗额外的 token（input 和 output），从而增加成本。具体消耗量取决于工具参数和返回结果的大小。' },
     { q: '如何减少 tool call 成本？', a: '可以：1. 精简工具参数；2. 减少不必要的工具调用；3. 合并多次小调用为一次大调用。' },
   ],
-  updatedAt: '2026-06-03',
-  internalLinks: ['/claude-code-token-cost/', '/api-koufei-yichang/', '/request-failed-billing/', '/small-budget-api-test/'],
+  updatedAt: '2026-06-05',
+  internalLinks: ['/ai-agent-token-cost/', '/claude-code-token-cost/', '/request-failed-billing/', '/small-budget-api-test/'],
   ctaEnabled: true,
   status: 'scaffold' as const
 };

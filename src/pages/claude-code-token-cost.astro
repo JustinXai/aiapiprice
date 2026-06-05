@@ -2,9 +2,9 @@
 import ArticleLayout from '../layouts/ArticleLayout.astro';
 
 const pageData = {
-  title: 'Claude Code Token 成本：为什么 Coding Agent 容易烧余额',
-  metaDescription: '解释 Claude Code 和 Coding Agent 的 Token 成本来源，包括长上下文、文件读取、tool calls、多轮循环、usage 对账和小额测试方法。',
-  h1: 'Claude Code Token 成本：为什么 Coding Agent 容易烧余额',
+  title: 'Claude Code Token 成本：Coding Agent 为什么容易烧余额',
+  metaDescription: '解释 Claude Code 与 Coding Agent 的 Token 成本来源，包括长上下文、文件读取、tool calls、多轮循环和小额测试。',
+  h1: 'Claude Code Token 成本：Coding Agent 为什么容易烧余额',
   category: 'Claude Code 与 Coding Agent 成本',
   aiSummary: 'Claude Code Token 成本页面解释 Coding Agent 为何容易消耗余额。成本来源包括：输入 token（用户 prompt、文件内容、上下文历史）、输出 token（模型回复）、缓存 token（cached context）、tool calls（工具调用消耗）。Claude Code 等 coding agent 的 token 消耗通常比普通聊天高出数倍到数十倍，因为涉及长上下文交互、代码库文件读取、多轮循环编辑、自动化执行和重试。小额测试建议从最小上下文开始，逐步扩大调用规模，同时记录 usage 和余额变化。',
   faq: [
@@ -13,8 +13,8 @@ const pageData = {
     { q: '如何降低 Claude Code 成本？', a: '可以尝试：1. 使用更小的上下文窗口；2. 减少每次交互的文件数量；3. 选择性价比更高的模型；4. 设置合理的 max_tokens 限制；5. 使用流式输出减少不必要的重试。' },
     { q: 'cached tokens 能省钱吗？', a: '部分服务商提供 cached tokens 折扣。Claude Code 会自动利用上下文缓存，但具体折扣政策请以官方文档为准。' },
   ],
-  updatedAt: '2026-06-03',
-  internalLinks: ['/openrouter-yue/', '/api-koufei-yichang/', '/small-budget-api-test/', '/claude-api-price/'],
+  updatedAt: '2026-06-05',
+  internalLinks: ['/ai-agent-token-cost/', '/tool-call-koufei/', '/openrouter-yue/', '/small-budget-api-test/', '/claude-api-price/'],
   externalConfigLink: { label: '进一步了解接入配置', url: 'https://aiapiradar.com/' },
   ctaEnabled: true,
   status: 'full' as const

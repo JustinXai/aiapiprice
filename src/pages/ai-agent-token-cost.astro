@@ -1,0 +1,43 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: 'AI Agent Token 成本：Claude Code、Cline、Cursor 与 tool call 成本入口',
+  metaDescription: '整理 AI Agent Token 成本，覆盖 Claude Code、OpenClaw、Kilo Code、Cline、Cursor、tool call、多轮循环、上下文读取、usage 对账和小额测试。',
+  h1: 'AI Agent Token 成本：Claude Code、Cline、Cursor 与 tool call 成本入口',
+  category: 'Agent 成本',
+  aiSummary: 'AI Agent Token 成本页聚焦 Claude Code、OpenClaw、Kilo Code、Cline、Cursor、tool call、function call、多轮循环、上下文读取、文件扫描、Base URL、API Key、小额测试、usage log 和 raw quota。本站不承诺最低价，不替代官方文档，也不承诺失败场景一定免费。',
+  faq: [
+    { q: '为什么 Agent 成本通常高于普通聊天？', a: 'Agent 会进行文件读取、工具调用、长上下文分析、多轮循环和失败重试，这些都可能显著放大 token 消耗。' },
+    { q: 'Agent 成本怎么做小额测试？', a: '建议先在最小上下文、最小文件范围和最少工具调用的前提下测试，再核对 usage log、raw quota 和余额变化。' },
+  ],
+  updatedAt: '2026-06-05',
+  internalLinks: ['/claude-code-token-cost/', '/tool-call-koufei/', '/small-budget-api-test/', '/openrouter-yue/'],
+  ctaEnabled: true,
+  status: 'scaffold' as const
+};
+---
+
+<ArticleLayout title={pageData.title} description={pageData.metaDescription} h1={pageData.h1} updatedAt={pageData.updatedAt} category={pageData.category} aiSummary={pageData.aiSummary} faq={pageData.faq} internalLinks={pageData.internalLinks} ctaEnabled={pageData.ctaEnabled} status={pageData.status}>
+  <div class="scaffold-content">
+    <h2>Quick Answer / 先给结论</h2>
+    <p>AI Agent 的 token 成本通常高于普通聊天，因为它会读取上下文、扫描文件、发起 tool call、运行多轮循环并触发重试。正式接入前，建议先做最小范围的小额测试，再核对 usage log、raw quota 和余额变化。</p>
+    <h2>适合谁</h2>
+    <ul><li>使用 Claude Code、OpenClaw、Kilo Code、Cline、Cursor 的开发者</li><li>准备接入 Agent 工作流的人</li><li>关心 tool call 和 function call 成本的人</li></ul>
+    <h2>成本受什么影响</h2>
+    <ul><li>上下文窗口大小</li><li>读取文件数量</li><li>tool call 与 function call 频率</li><li>多轮循环与失败重试</li><li>模型选择与 Base URL 路由</li></ul>
+    <h2>常见扣费单位</h2>
+    <ul><li>输入 token</li><li>输出 token</li><li>缓存 token</li><li>工具调用带来的额外 token</li></ul>
+    <h2>失败、超时、重试是否可能产生费用</h2>
+    <p>可能。Agent 发生中断、重试或多轮循环时，通常仍会消耗 token。应结合 usage log、raw quota、request_id 和后台账单记录综合判断。</p>
+    <h2>小额测试建议</h2>
+    <ol><li>先缩小上下文和文件范围</li><li>减少工具调用次数</li><li>限制循环轮数</li><li>记录 usage 与余额变化</li></ol>
+    <h2>常见错误</h2>
+    <ul><li>一次性喂入整个代码库</li><li>没有限制工具调用与循环轮次</li><li>只看最终回答，不看中间 token 消耗</li></ul>
+    <h2>相关页面</h2>
+    <ul><li><a href="/claude-code-token-cost/">Claude Code Token 成本</a></li><li><a href="/tool-call-koufei/">tool call 扣费</a></li><li><a href="/small-budget-api-test/">小额测试 API</a></li><li><a href="/openrouter-yue/">OpenRouter 余额怎么扣</a></li></ul>
+    <div class="pricing-notice"><strong>价格和可用性说明：</strong>价格和模型可用性可能变化。开发者应定期查看官方文档、后台模型列表和最新价格更新，以服务商官方信息为准。</div>
+  </div>
+</ArticleLayout>
+
+<style>.scaffold-content h2 { font-size: 1.25rem; margin-bottom: var(--spacing-md); }.scaffold-content ul, .scaffold-content ol { margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }.scaffold-content li { margin-bottom: var(--spacing-sm); }</style>

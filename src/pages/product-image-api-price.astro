@@ -1,0 +1,43 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: '商品图 API 价格：背景替换、图生图与批量商品图生成怎么计费',
+  metaDescription: '解释商品图生成 API 价格，覆盖背景替换、图生图、尺寸、输入图、输出图、批量生成与小额测试。',
+  h1: '商品图 API 价格：背景替换、图生图与批量商品图生成怎么计费',
+  category: '图片生成价格',
+  aiSummary: '商品图 API 价格页聚焦商品图生成 API、背景替换、图生图、图片编辑、输入图、输出图、批量生成、小额测试、usage log 与账单记录。本站不承诺最低价，不替代官方文档，也不承诺失败场景一定免费。',
+  faq: [
+    { q: '商品图 API 通常按什么收费？', a: '不同平台可能按张数、尺寸、输入图数量、编辑任务、分辨率或批量任务计费。' },
+    { q: '背景替换会单独计费吗？', a: '部分平台会把背景替换、抠图或编辑任务作为单独计费项，具体以官方文档和后台账单为准。' },
+  ],
+  updatedAt: '2026-06-05',
+  internalLinks: ['/image-generation-api-price/', '/gpt-image-api-price/', '/product-video-api-cost/', '/small-budget-api-test/'],
+  ctaEnabled: true,
+  status: 'scaffold' as const
+};
+---
+
+<ArticleLayout title={pageData.title} description={pageData.metaDescription} h1={pageData.h1} updatedAt={pageData.updatedAt} category={pageData.category} aiSummary={pageData.aiSummary} faq={pageData.faq} internalLinks={pageData.internalLinks} ctaEnabled={pageData.ctaEnabled} status={pageData.status}>
+  <div class="scaffold-content">
+    <h2>Quick Answer / 先给结论</h2>
+    <p>商品图 API 的成本通常受图片张数、分辨率、输入图、背景替换、图生图和批量任务影响。正式批量生成前，建议先用小额测试确认单张、单任务和编辑任务的真实账单。</p>
+    <h2>适合谁</h2>
+    <ul><li>做商品图、背景替换和图片编辑的开发者</li><li>需要估算批量商品图成本的团队</li><li>希望核对 usage 与账单的人</li></ul>
+    <h2>成本受什么影响</h2>
+    <ul><li>图片张数与分辨率</li><li>输入图与输出图尺寸</li><li>背景替换和图生图处理</li><li>批量生成规模</li><li>失败重试与编辑任务补跑</li></ul>
+    <h2>常见扣费单位</h2>
+    <ul><li>按张数</li><li>按分辨率</li><li>按编辑任务</li><li>按模型档位</li></ul>
+    <h2>失败、超时、重试是否可能产生费用</h2>
+    <p>可能。图片生成和编辑任务的失败处理策略并不统一，建议结合 usage log、request_id 和后台账单记录核对。</p>
+    <h2>小额测试建议</h2>
+    <ol><li>先测最小尺寸和最少张数</li><li>单独测试背景替换与图生图</li><li>保留 request_id 和 usage 返回</li><li>确认后再扩大批量生成</li></ol>
+    <h2>常见错误</h2>
+    <ul><li>把背景替换当成免费附带能力</li><li>直接跑高分辨率批量任务</li><li>未区分输入图和输出图的计费逻辑</li></ul>
+    <h2>相关页面</h2>
+    <ul><li><a href="/image-generation-api-price/">图片生成 API 价格</a></li><li><a href="/gpt-image-api-price/">GPT Image API 价格</a></li><li><a href="/product-video-api-cost/">商品视频 API 成本</a></li><li><a href="/small-budget-api-test/">小额测试 API</a></li></ul>
+    <div class="pricing-notice"><strong>价格和可用性说明：</strong>价格和模型可用性可能变化。开发者应定期查看官方文档、后台模型列表和最新价格更新，以服务商官方信息为准。</div>
+  </div>
+</ArticleLayout>
+
+<style>.scaffold-content h2 { font-size: 1.25rem; margin-bottom: var(--spacing-md); }.scaffold-content ul, .scaffold-content ol { margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }.scaffold-content li { margin-bottom: var(--spacing-sm); }</style>

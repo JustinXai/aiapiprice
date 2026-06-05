@@ -1,0 +1,43 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: '图生视频 API 成本：输入图、首尾帧、分辨率与失败重试怎么计费',
+  metaDescription: '解释图生视频 API 成本，覆盖输入图、参考图、首尾帧、分辨率、秒数、模型、任务失败、重试和回调。',
+  h1: '图生视频 API 成本：输入图、首尾帧、分辨率与失败重试怎么计费',
+  category: '视频生成价格',
+  aiSummary: '图生视频 API 成本页聚焦图片生成 API、图生视频 API、输入图、参考图、首尾帧、分辨率、秒数、模型版本、任务失败、重试、回调和小额测试。本站不承诺最低价，不替代官方文档，也不承诺失败场景一定免费。',
+  faq: [
+    { q: '图生视频为什么通常比文生视频更贵？', a: '图生视频通常需要额外处理输入图、参考图或首尾帧，因此在模型计算、素材处理和任务复杂度上更高。' },
+    { q: '图生视频失败后重试会重复计费吗？', a: '不同供应商规则不同，建议用 task_id、request_id、usage log 和后台账单记录综合判断。' },
+  ],
+  updatedAt: '2026-06-05',
+  internalLinks: ['/ai-video-api-price/', '/video-generation-api-cost/', '/video-generation-webhook/', '/product-video-api-cost/'],
+  ctaEnabled: true,
+  status: 'scaffold' as const
+};
+---
+
+<ArticleLayout title={pageData.title} description={pageData.metaDescription} h1={pageData.h1} updatedAt={pageData.updatedAt} category={pageData.category} aiSummary={pageData.aiSummary} faq={pageData.faq} internalLinks={pageData.internalLinks} ctaEnabled={pageData.ctaEnabled} status={pageData.status}>
+  <div class="scaffold-content">
+    <h2>Quick Answer / 先给结论</h2>
+    <p>图生视频 API 通常会比纯文生视频更复杂，因为输入图、参考图、首尾帧和风格控制都会增加任务成本。正式批量生成前，建议先用最少素材和最短秒数做小额测试。</p>
+    <h2>适合谁</h2>
+    <ul><li>准备做图生视频或商品图转视频的开发者</li><li>需要核对输入素材对视频账单影响的团队</li><li>关心回调和失败重试成本的人</li></ul>
+    <h2>成本受什么影响</h2>
+    <ul><li>输入图与参考图数量</li><li>首尾帧控制</li><li>视频秒数与分辨率</li><li>模型档位与风格控制</li><li>失败重试与回调补跑</li></ul>
+    <h2>常见扣费单位</h2>
+    <ul><li>按任务</li><li>按秒</li><li>按 credit</li><li>按模型与分辨率</li></ul>
+    <h2>失败、超时、重试是否可能产生费用</h2>
+    <p>可能。图生视频任务常是异步执行，客户端超时不等于任务未运行。建议用 task_id、usage log、raw quota 和账单记录对账。</p>
+    <h2>小额测试建议</h2>
+    <ol><li>先用单张输入图和最低分辨率测试</li><li>避免一次上传过多参考素材</li><li>保留 task_id、request_id 和回调状态</li><li>确认后再扩大批量任务</li></ol>
+    <h2>常见错误</h2>
+    <ul><li>输入素材一开始就过多，导致单任务成本过高</li><li>忽略首尾帧与风格约束带来的额外成本</li><li>只看前端结果，不看后台任务账单</li></ul>
+    <h2>相关页面</h2>
+    <ul><li><a href="/ai-video-api-price/">AI 视频生成 API 价格</a></li><li><a href="/video-generation-api-cost/">视频生成 API 成本</a></li><li><a href="/video-generation-webhook/">视频生成 webhook 与 callback</a></li><li><a href="/product-video-api-cost/">商品视频 API 成本</a></li></ul>
+    <div class="pricing-notice"><strong>价格和可用性说明：</strong>价格和模型可用性可能变化。开发者应定期查看官方文档、后台模型列表和最新价格更新，以服务商官方信息为准。</div>
+  </div>
+</ArticleLayout>
+
+<style>.scaffold-content h2 { font-size: 1.25rem; margin-bottom: var(--spacing-md); }.scaffold-content ul, .scaffold-content ol { margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }.scaffold-content li { margin-bottom: var(--spacing-sm); }</style>

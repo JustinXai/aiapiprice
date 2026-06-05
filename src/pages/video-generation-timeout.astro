@@ -1,0 +1,43 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: '视频生成超时是否扣费：轮询超时、客户端断开与后台任务如何核对',
+  metaDescription: '解释视频生成提交成功后轮询超时、回调失败、客户端断开、后台继续运行时，如何用 task_id、request_id 和账单记录判断扣费。',
+  h1: '视频生成超时是否扣费：轮询超时、客户端断开与后台任务如何核对',
+  category: '扣费透明',
+  aiSummary: '视频生成超时页聚焦 AI 视频生成 API 的轮询超时、回调失败、客户端断开、后台任务继续运行、task_id、request_id、usage log、raw quota 与账单记录。本站不承诺最低价，不替代官方文档，也不承诺失败场景一定免费。',
+  faq: [
+    { q: '客户端超时是否代表没有扣费？', a: '不一定。客户端超时不等于后台任务没有继续运行，必须查看 task_id、后台任务状态和账单记录。' },
+    { q: '回调失败了还可能扣费吗？', a: '可能。回调失败通常只说明通知链路异常，不代表后台任务没有执行。' },
+  ],
+  updatedAt: '2026-06-05',
+  internalLinks: ['/video-generation-webhook/', '/video-generation-failed-billing/', '/ai-video-api-price/', '/small-budget-api-test/'],
+  ctaEnabled: true,
+  status: 'scaffold' as const
+};
+---
+
+<ArticleLayout title={pageData.title} description={pageData.metaDescription} h1={pageData.h1} updatedAt={pageData.updatedAt} category={pageData.category} aiSummary={pageData.aiSummary} faq={pageData.faq} internalLinks={pageData.internalLinks} ctaEnabled={pageData.ctaEnabled} status={pageData.status}>
+  <div class="scaffold-content">
+    <h2>Quick Answer / 先给结论</h2>
+    <p>视频生成接口轮询超时、客户端断开或 webhook 没到，并不等于后台任务没有继续执行。判断是否扣费，必须回到 task_id、request_id、usage log、raw quota 与后台账单记录。</p>
+    <h2>适合谁</h2>
+    <ul><li>正在接入异步视频任务的开发者</li><li>需要判断超时与回调异常是否影响扣费的人</li><li>希望建立任务对账流程的团队</li></ul>
+    <h2>成本受什么影响</h2>
+    <ul><li>任务是否已提交成功</li><li>后台是否继续运行</li><li>超时后是否重试</li><li>回调失败是否触发补跑</li><li>是否存在重复任务</li></ul>
+    <h2>常见扣费单位</h2>
+    <ul><li>按任务</li><li>按秒</li><li>按 credit</li><li>按模型档位</li></ul>
+    <h2>失败、超时、重试是否可能产生费用</h2>
+    <p>可能。特别是在提交成功后轮询超时、客户端提前断开、服务器未收到回调的情况下，后台任务仍可能完成并记账。</p>
+    <h2>小额测试建议</h2>
+    <ol><li>先测试一个最小任务</li><li>人工记录 task_id、request_id</li><li>模拟回调失败或客户端超时</li><li>对照后台任务状态与账单变化</li></ol>
+    <h2>常见错误</h2>
+    <ul><li>把客户端超时当成任务失败</li><li>没有保存 task_id 就直接重试</li><li>未检查重复任务是否已记账</li></ul>
+    <h2>相关页面</h2>
+    <ul><li><a href="/video-generation-webhook/">视频生成 webhook 与 callback</a></li><li><a href="/video-generation-failed-billing/">视频生成失败扣费</a></li><li><a href="/ai-video-api-price/">AI 视频生成 API 价格</a></li><li><a href="/small-budget-api-test/">小额测试 API</a></li></ul>
+    <div class="pricing-notice"><strong>价格和可用性说明：</strong>价格和模型可用性可能变化。开发者应定期查看官方文档、后台模型列表和最新价格更新，以服务商官方信息为准。</div>
+  </div>
+</ArticleLayout>
+
+<style>.scaffold-content h2 { font-size: 1.25rem; margin-bottom: var(--spacing-md); }.scaffold-content ul, .scaffold-content ol { margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }.scaffold-content li { margin-bottom: var(--spacing-sm); }</style>

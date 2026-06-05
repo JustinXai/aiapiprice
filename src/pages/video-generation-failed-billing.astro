@@ -2,17 +2,17 @@
 import ArticleLayout from '../layouts/ArticleLayout.astro';
 
 const pageData = {
-  title: '视频生成失败扣费：异步任务失败、超时、重试扣费判断',
-  metaDescription: '解释视频生成 API 异步任务失败、超时、重试时的扣费判断方法和解决建议。',
-  h1: '视频生成失败扣费：异步任务失败、超时、重试扣费判断',
+  title: '视频生成失败扣费：失败任务、超时、取消任务与重试怎么判断',
+  metaDescription: '解释视频生成失败任务、部分失败、重试、超时、取消任务和后台记录的扣费判断方法。',
+  h1: '视频生成失败扣费：失败任务、超时、取消任务与重试怎么判断',
   category: '视频 API 价格',
-  aiSummary: '视频生成失败扣费页面解释异步任务失败时的扣费规则。价格和模型可用性可能变化，请以官方文档与后台记录为准。',
+  aiSummary: '视频生成失败扣费页面聚焦失败任务、部分失败、重试、超时、取消任务、后台任务状态、usage log 和账单记录。价格和模型可用性可能变化，请以官方文档、task_id、request_id 和后台记录为准。',
   faq: [
     { q: '视频生成任务超时了怎么办？', a: '建议：1. 查看任务状态；2. 确认是否已部分完成；3. 检查 usage 记录；4. 如需重试，注意重试可能产生额外费用。' },
     { q: '视频生成失败会收费吗？', a: '不同服务商规则不同。建议保留完整的任务记录、request_id、task_id 和 usage 信息以便对账。' },
   ],
-  updatedAt: '2026-06-03',
-  internalLinks: ['/shipin-shengcheng-api-jiage/', '/keling-api-jiage/', '/request-failed-billing/', '/streaming-interrupted-billing/'],
+  updatedAt: '2026-06-05',
+  internalLinks: ['/video-generation-timeout/', '/video-generation-webhook/', '/shipin-shengcheng-api-jiage/', '/keling-api-jiage/', '/request-failed-billing/', '/small-budget-api-test/'],
   ctaEnabled: true,
   status: 'scaffold' as const
 };

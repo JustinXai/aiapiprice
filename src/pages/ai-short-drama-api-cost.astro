@@ -1,0 +1,43 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: 'AI短剧成本：批量生成、失败重试与多镜头任务怎么估',
+  metaDescription: '解释 AI短剧 API 成本，聚焦单条短视频、多镜头、多版本、批量生成、失败重试、超时、回调和素材成本。',
+  h1: 'AI短剧成本：批量生成、失败重试与多镜头任务怎么估',
+  category: 'AI短剧成本',
+  aiSummary: 'AI短剧成本页聚焦 AI 视频生成 API、AI短剧批量生成、单条短视频成本、多镜头拆分、多版本生成、素材输入、失败重试、超时、回调、usage log、raw quota 和小额测试。本站不承诺最低价，不替代官方文档，也不承诺失败场景一定免费。',
+  faq: [
+    { q: 'AI短剧生成为什么容易超预算？', a: '多镜头、多版本、失败重试、超时补跑和素材处理都会放大调用次数与账单成本。' },
+    { q: '批量短剧任务要怎么测试？', a: '先用最短视频和最小镜头数做小额测试，再对照 usage log、task_id 和后台账单记录确认单任务成本。' },
+  ],
+  updatedAt: '2026-06-05',
+  internalLinks: ['/ai-video-api-price/', '/image-to-video-api-cost/', '/video-generation-timeout/', '/small-budget-api-test/'],
+  ctaEnabled: true,
+  status: 'scaffold' as const
+};
+---
+
+<ArticleLayout title={pageData.title} description={pageData.metaDescription} h1={pageData.h1} updatedAt={pageData.updatedAt} category={pageData.category} aiSummary={pageData.aiSummary} faq={pageData.faq} internalLinks={pageData.internalLinks} ctaEnabled={pageData.ctaEnabled} status={pageData.status}>
+  <div class="scaffold-content">
+    <h2>Quick Answer / 先给结论</h2>
+    <p>AI短剧批量生成的成本，往往不是单条视频价格乘以数量这么简单。多镜头、多版本、失败重试、超时补跑、回调异常和素材输入都会显著放大预算，因此正式批量跑前应先做小额测试。</p>
+    <h2>适合谁</h2>
+    <ul><li>需要做批量 AI 短视频生产的开发者</li><li>要估算短剧 API 成本而不是研究运营玩法的团队</li><li>关注回调、超时和失败重试账单影响的人</li></ul>
+    <h2>成本受什么影响</h2>
+    <ul><li>单条视频时长</li><li>镜头数量与拆分方式</li><li>版本数量与批量任务规模</li><li>素材输入、首帧、尾帧与参考图</li><li>失败重试、超时与回调异常</li></ul>
+    <h2>常见扣费单位</h2>
+    <ul><li>按秒</li><li>按任务</li><li>按 credit / 积分</li><li>按模型档位或分辨率</li></ul>
+    <h2>失败、超时、重试是否可能产生费用</h2>
+    <p>可能。尤其是批量短剧任务中，补跑和重试很容易让调用次数翻倍。是否扣费需要结合 task_id、usage log、raw quota 和账单记录综合判断。</p>
+    <h2>小额测试建议</h2>
+    <ol><li>先从单镜头、最短时长开始</li><li>只保留一个输出版本</li><li>验证回调与轮询逻辑是否稳定</li><li>核对单条任务真实成本后再扩量</li></ol>
+    <h2>常见错误</h2>
+    <ul><li>把内容创作流程和 API 成本混在一起</li><li>未记录任务状态就直接重试</li><li>先批量跑，再事后对账</li></ul>
+    <h2>相关页面</h2>
+    <ul><li><a href="/ai-video-api-price/">AI 视频生成 API 价格</a></li><li><a href="/image-to-video-api-cost/">图生视频 API 成本</a></li><li><a href="/video-generation-timeout/">视频生成超时是否扣费</a></li><li><a href="/small-budget-api-test/">小额测试 API</a></li></ul>
+    <div class="pricing-notice"><strong>价格和可用性说明：</strong>价格和模型可用性可能变化。开发者应定期查看官方文档、后台模型列表和最新价格更新，以服务商官方信息为准。</div>
+  </div>
+</ArticleLayout>
+
+<style>.scaffold-content h2 { font-size: 1.25rem; margin-bottom: var(--spacing-md); }.scaffold-content ul, .scaffold-content ol { margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }.scaffold-content li { margin-bottom: var(--spacing-sm); }</style>

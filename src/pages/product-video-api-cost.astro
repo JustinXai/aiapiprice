@@ -1,0 +1,43 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: '商品视频 API 成本：商品图转视频、批量版本与失败重试怎么估',
+  metaDescription: '解释商品视频生成 API 成本，覆盖商品图转视频、短视频素材、批量版本、秒数、分辨率、失败重试、回调与后台记录。',
+  h1: '商品视频 API 成本：商品图转视频、批量版本与失败重试怎么估',
+  category: '视频生成价格',
+  aiSummary: '商品视频 API 成本页聚焦商品图转视频、短视频素材、批量版本、秒数、分辨率、失败重试、回调、后台记录、小额测试、usage log 与 task_id 对账。本站不承诺最低价，不替代官方文档，也不承诺失败场景一定免费。',
+  faq: [
+    { q: '商品视频批量生成为什么成本波动大？', a: '视频时长、版本数、分辨率、素材输入数量、失败重试和回调补跑都会影响总成本。' },
+    { q: '商品视频任务如何做小额测试？', a: '建议从最短视频、最低分辨率和最少版本开始测试，再核对 task_id、usage log 和账单记录。' },
+  ],
+  updatedAt: '2026-06-05',
+  internalLinks: ['/product-image-api-price/', '/image-to-video-api-cost/', '/video-generation-webhook/', '/ai-short-drama-api-cost/'],
+  ctaEnabled: true,
+  status: 'scaffold' as const
+};
+---
+
+<ArticleLayout title={pageData.title} description={pageData.metaDescription} h1={pageData.h1} updatedAt={pageData.updatedAt} category={pageData.category} aiSummary={pageData.aiSummary} faq={pageData.faq} internalLinks={pageData.internalLinks} ctaEnabled={pageData.ctaEnabled} status={pageData.status}>
+  <div class="scaffold-content">
+    <h2>Quick Answer / 先给结论</h2>
+    <p>商品视频 API 的预算往往由视频秒数、分辨率、版本数、输入商品图数量和失败重试共同决定。批量生成前，建议先从最短视频与最低分辨率做小额测试，再根据 task_id 和账单记录估算总成本。</p>
+    <h2>适合谁</h2>
+    <ul><li>做商品图转视频和素材短视频的开发者</li><li>需要估算商品视频批量版本成本的团队</li><li>关心 webhook、超时与重试对账的人</li></ul>
+    <h2>成本受什么影响</h2>
+    <ul><li>视频时长与分辨率</li><li>版本数量与批量任务规模</li><li>输入商品图和参考素材数量</li><li>模型档位</li><li>失败重试与回调补跑</li></ul>
+    <h2>常见扣费单位</h2>
+    <ul><li>按秒</li><li>按任务</li><li>按 credit</li><li>按模型与分辨率</li></ul>
+    <h2>失败、超时、重试是否可能产生费用</h2>
+    <p>可能。商品视频任务通常是异步的，客户端超时和回调异常不代表没有记账。请结合 task_id、usage log 与后台账单记录核对。</p>
+    <h2>小额测试建议</h2>
+    <ol><li>先用一个商品图跑最短视频</li><li>只保留一个版本</li><li>记录 task_id、result_url 和账单变化</li><li>确认单任务成本后再扩量</li></ol>
+    <h2>常见错误</h2>
+    <ul><li>一次生成太多版本</li><li>没有区分输入素材成本与视频输出成本</li><li>在回调未确认前重复提交流程</li></ul>
+    <h2>相关页面</h2>
+    <ul><li><a href="/product-image-api-price/">商品图 API 价格</a></li><li><a href="/image-to-video-api-cost/">图生视频 API 成本</a></li><li><a href="/video-generation-webhook/">视频生成 webhook 与 callback</a></li><li><a href="/ai-short-drama-api-cost/">AI短剧成本</a></li></ul>
+    <div class="pricing-notice"><strong>价格和可用性说明：</strong>价格和模型可用性可能变化。开发者应定期查看官方文档、后台模型列表和最新价格更新，以服务商官方信息为准。</div>
+  </div>
+</ArticleLayout>
+
+<style>.scaffold-content h2 { font-size: 1.25rem; margin-bottom: var(--spacing-md); }.scaffold-content ul, .scaffold-content ol { margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }.scaffold-content li { margin-bottom: var(--spacing-sm); }</style>

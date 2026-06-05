@@ -1,0 +1,43 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: '视频生成 webhook 与 callback：如何用回调状态核对任务与扣费',
+  metaDescription: '解释视频生成 webhook / callback_url、task_id、status、result_url、超时、重复回调、失败状态与账单记录的核对方法。',
+  h1: '视频生成 webhook 与 callback：如何用回调状态核对任务与扣费',
+  category: '扣费透明',
+  aiSummary: '视频生成 webhook 页聚焦 callback_url、task_id、status、result_url、超时、重复回调、失败状态、usage log、raw quota 与账单记录。本站不承诺最低价，不替代官方文档，也不承诺失败场景一定免费。',
+  faq: [
+    { q: '重复回调会不会重复扣费？', a: '重复回调通常不等于重复扣费，但仍需核对 task_id、request_id、usage log 和账单记录。' },
+    { q: '没有收到回调是否说明任务失败？', a: '不一定。回调链路异常、超时或签名验证失败都可能导致未收到回调，需要再查后台任务状态。' },
+  ],
+  updatedAt: '2026-06-05',
+  internalLinks: ['/video-generation-timeout/', '/video-generation-failed-billing/', '/video-generation-api-cost/', '/ai-video-api-price/'],
+  ctaEnabled: true,
+  status: 'scaffold' as const
+};
+---
+
+<ArticleLayout title={pageData.title} description={pageData.metaDescription} h1={pageData.h1} updatedAt={pageData.updatedAt} category={pageData.category} aiSummary={pageData.aiSummary} faq={pageData.faq} internalLinks={pageData.internalLinks} ctaEnabled={pageData.ctaEnabled} status={pageData.status}>
+  <div class="scaffold-content">
+    <h2>Quick Answer / 先给结论</h2>
+    <p>webhook / callback 主要帮助你确认异步视频任务状态，但它本身不是唯一账单依据。是否扣费，仍应结合 task_id、request_id、usage log、raw quota 和后台账单记录综合判断。</p>
+    <h2>适合谁</h2>
+    <ul><li>需要接入 callback_url 的开发者</li><li>希望用状态回调核对异步任务的人</li><li>处理重复回调、失败状态和超时的团队</li></ul>
+    <h2>成本受什么影响</h2>
+    <ul><li>任务是否成功提交</li><li>回调是否正常送达</li><li>状态是否重复回传</li><li>失败后是否自动补跑或重试</li><li>后台账单是否按任务计费</li></ul>
+    <h2>常见扣费单位</h2>
+    <ul><li>按任务</li><li>按秒</li><li>按 credit</li><li>按模型档位</li></ul>
+    <h2>失败、超时、重试是否可能产生费用</h2>
+    <p>可能。回调异常通常只是通知链路问题，不代表后台任务没有执行。重试回调或补跑任务，也可能引入新的费用。</p>
+    <h2>小额测试建议</h2>
+    <ol><li>先接一个最小任务</li><li>记录 task_id、status、result_url</li><li>模拟回调超时与重复投递</li><li>对照后台账单确认是否重复记账</li></ol>
+    <h2>常见错误</h2>
+    <ul><li>把重复回调误判为重复扣费</li><li>没有保存原始状态日志</li><li>只看 callback，不查供应商后台记录</li></ul>
+    <h2>相关页面</h2>
+    <ul><li><a href="/video-generation-timeout/">视频生成超时是否扣费</a></li><li><a href="/video-generation-failed-billing/">视频生成失败扣费</a></li><li><a href="/video-generation-api-cost/">视频生成 API 成本</a></li><li><a href="/ai-video-api-price/">AI 视频生成 API 价格</a></li></ul>
+    <div class="pricing-notice"><strong>价格和可用性说明：</strong>价格和模型可用性可能变化。开发者应定期查看官方文档、后台模型列表和最新价格更新，以服务商官方信息为准。</div>
+  </div>
+</ArticleLayout>
+
+<style>.scaffold-content h2 { font-size: 1.25rem; margin-bottom: var(--spacing-md); }.scaffold-content ul, .scaffold-content ol { margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }.scaffold-content li { margin-bottom: var(--spacing-sm); }</style>

@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: 'AI API 价格指南',
-  title: 'AI API 价格指南：模型 API 价格、Token 成本与扣费透明',
-  description: 'AI API 价格指南帮助国内开发者在接入模型 API 前，先理解价格单位、Token 成本、OpenRouter 余额、视频/图片生成扣费、失败请求扣费和小额测试方法。',
+  title: 'AI API 价格、视频生成成本与扣费透明指南',
+  description: '比较 AI 视频生成、图片生成、AI短剧、Coding Agent 与多模型 API 的成本、失败扣费、超时、回调、usage 对账和小额测试方法。',
   url: 'https://aiapiprice.com',
   lang: 'zh-CN',
   author: 'AI API 价格指南',
@@ -21,20 +21,21 @@ export const siteConfig = {
   },
   
   navigation: [
-    { label: '首页', href: '/' },
-    { label: 'Claude Code 成本', href: '/claude-code-token-cost/' },
-    { label: 'OpenRouter 余额', href: '/openrouter-yue/' },
-    { label: '视频生成 API', href: '/shipin-shengcheng-api-jiage/' },
-    { label: '模型价格', href: '/deepseek-api-price/' },
+    { label: '视频生成价格', href: '/ai-video-api-price/' },
+    { label: 'AI短剧成本', href: '/ai-short-drama-api-cost/' },
+    { label: '图片生成价格', href: '/image-generation-api-price/' },
+    { label: 'Agent 成本', href: '/ai-agent-token-cost/' },
+    { label: '扣费透明', href: '/video-generation-failed-billing/' },
+    { label: '小额测试', href: '/small-budget-api-test/' },
   ],
   
   categories: [
     {
       id: 'claude-code',
-      name: 'Claude Code 与 Coding Agent 成本',
-      slug: 'claude-code-cost',
-      description: 'Claude Code、GitHub Copilot、Cursor 等 coding agent 的 token 消耗、上下文管理和成本优化',
-      pages: ['/claude-code-token-cost/']
+      name: 'Coding Agent Token 成本',
+      slug: 'agent-token-cost',
+      description: 'Claude Code、OpenClaw、Kilo Code、Cline 和 Cursor 的 token 消耗、tool call 与多轮循环成本',
+      pages: ['/ai-agent-token-cost/', '/claude-code-token-cost/', '/tool-call-koufei/']
     },
     {
       id: 'openrouter',
@@ -59,97 +60,107 @@ export const siteConfig = {
     },
     {
       id: 'image-api',
-      name: '图像 API 价格',
+      name: '图片生成 API 价格',
       slug: 'image-api-price',
-      description: '图片生成 API、图像识别 API 的价格结构和计费单位',
-      pages: ['/image-generation-api-price/', '/jimeng-api-price/', '/gpt-image-api-price/']
+      description: '图片生成、商品图、背景替换、图生图和编辑任务的价格结构与扣费方式',
+      pages: ['/image-generation-api-price/', '/gpt-image-api-price/', '/product-image-api-price/', '/jimeng-api-price/']
     },
     {
       id: 'video-api',
-      name: '视频 API 价格',
+      name: 'AI 视频生成 API 价格',
       slug: 'video-api-price',
-      description: '视频生成 API、可灵、即梦、Seedance 等视频 API 的计费逻辑和扣费判断',
-      pages: ['/shipin-shengcheng-api-jiage/', '/keling-api-jiage/', '/video-generation-failed-billing/']
+      description: '可灵、即梦、Seedance、文生视频、图生视频、超时、回调和失败重试的价格与成本结构',
+      pages: ['/ai-video-api-price/', '/video-generation-api-cost/', '/shipin-shengcheng-api-jiage/', '/keling-api-jiage/', '/video-generation-timeout/']
     },
     {
       id: 'billing',
-      name: '扣费异常与小额测试',
+      name: '扣费透明',
       slug: 'billing-troubleshooting',
-      description: '请求失败、stream 中断、tool call、失败请求扣费的判断方法和小额测试流程',
-      pages: ['/api-koufei-yichang/', '/request-failed-billing/', '/tool-call-koufei/', '/streaming-interrupted-billing/', '/small-budget-api-test/']
+      description: '失败任务、超时、取消任务、回调异常、tool call 与 usage / raw quota 对账',
+      pages: ['/video-generation-failed-billing/', '/video-generation-timeout/', '/video-generation-webhook/', '/api-koufei-yichang/', '/request-failed-billing/']
     }
   ],
   
   costTypes: [
     {
-      id: 'token',
-      name: 'Token 成本',
-      description: '输入 token、输出 token、缓存 token、tool call token 的计费逻辑',
-      href: '/claude-code-token-cost/'
+      id: 'video',
+      name: '视频生成成本',
+      description: '按秒、按任务、按分辨率、按 credit 的视频生成成本结构与失败扣费判断',
+      href: '/video-generation-api-cost/'
     },
     {
-      id: 'credits',
-      name: 'Credits / 余额',
-      description: '预存余额、credits 扣除、usage 记录和 API Key 余额对账',
-      href: '/openrouter-yue/'
+      id: 'short-drama',
+      name: 'AI短剧成本',
+      description: '批量短视频、失败重试、回调、素材与多版本生成的成本估算',
+      href: '/ai-short-drama-api-cost/'
     },
     {
       id: 'image',
       name: '图片生成成本',
-      description: '按 token、按图片、按分辨率计费的区别和扣费判断',
-      href: '/image-generation-api-price/'
+      description: '商品图、背景替换、图生图、编辑和批量生成的计费方式',
+      href: '/product-image-api-price/'
     },
     {
-      id: 'video',
-      name: '视频生成成本',
-      description: '按秒、按 credit、按任务、按分辨率计费和失败扣费判断',
-      href: '/shipin-shengcheng-api-jiage/'
+      id: 'agent',
+      name: 'Coding Agent Token 成本',
+      description: 'Claude Code、OpenClaw、Kilo Code、Cline 与 Cursor 的 token 消耗结构',
+      href: '/ai-agent-token-cost/'
     },
     {
-      id: 'failed',
-      name: '失败请求扣费',
-      description: '请求失败、401/403、超时、重试、流式中断的扣费判断',
-      href: '/request-failed-billing/'
+      id: 'timeout-failed',
+      name: '失败/超时扣费',
+      description: '失败任务、超时、取消任务、回调异常和重试是否可能产生费用',
+      href: '/video-generation-timeout/'
+    },
+    {
+      id: 'usage-raw-quota',
+      name: 'usage / raw quota 对账',
+      description: '通过 usage log、raw quota、task_id 和账单记录核对扣费',
+      href: '/openrouter-yue/'
     }
   ],
   
   models: [
+    { name: '可灵', href: '/keling-api-jiage/', description: '可灵视频生成、图生视频和失败任务扣费' },
+    { name: '即梦', href: '/jimeng-api-price/', description: '即梦图片/视频生成与任务扣费' },
+    { name: 'Seedance', href: '/ai-video-api-price/', description: '视频生成平台价格入口与任务结构' },
+    { name: 'GPT Image', href: '/gpt-image-api-price/', description: '图片生成、编辑、背景替换与小额测试' },
+    { name: 'OpenAI', href: '/openai-api-usage/', description: 'OpenAI usage、图片生成与账单核对' },
+    { name: 'Claude Code', href: '/claude-code-token-cost/', description: 'Claude Code 与 Coding Agent token 成本' },
+    { name: 'OpenClaw', href: '/ai-agent-token-cost/', description: 'Agent token 成本与工具调用结构' },
+    { name: 'Kilo Code', href: '/ai-agent-token-cost/', description: 'Coding Agent 成本入口与小额测试' },
+    { name: 'Cline / Cursor', href: '/ai-agent-token-cost/', description: '多轮循环、读取上下文和工具调用成本' },
     { name: 'DeepSeek', href: '/deepseek-api-price/', description: 'DeepSeek V3/R1 系列 API 价格' },
-    { name: 'Kimi', href: '/kimi-api-price/', description: 'Kimi 长上下文 API 价格' },
     { name: 'Qwen', href: '/qwen-api-price/', description: '通义千问 Qwen 系列 API 价格' },
-    { name: '通义千问', href: '/tongyi-qianwen-api-price/', description: '阿里云通义千问 API 价格' },
-    { name: '豆包', href: '/doubao-api-price/', description: '字节豆包 API 价格' },
-    { name: 'Claude', href: '/claude-api-price/', description: 'Claude 3.5/4 系列 API 价格' },
-    { name: 'Gemini', href: '/gemini-api-price/', description: 'Google Gemini API 价格' },
-    { name: 'OpenAI', href: '/openai-api-usage/', description: 'OpenAI GPT-4o/DALL-E API 价格' },
+    { name: '豆包', href: '/doubao-api-price/', description: '豆包 API 价格与可用模型' },
   ],
   
   faq: [
     {
-      q: 'AI API 价格会变化吗？',
-      a: '是的。模型 API 价格和可用性可能随时变化。开发者应定期查看官方文档、后台模型列表和最新价格更新，以服务商官方信息为准。'
+      q: '视频生成 API 为什么通常更贵？',
+      a: '视频生成通常会同时受秒数、分辨率、模型、任务次数、参考图、音频和失败重试影响，成本结构往往比文本 API 更复杂。'
     },
     {
-      q: '为什么 Claude Code 比聊天更费 token？',
-      a: 'Claude Code 等 coding agent 会进行长上下文交互、文件读取、工具调用、多轮循环等操作，这些都会消耗额外 token。上下文越大、文件越多、工具调用越频繁，token 消耗越高。'
+      q: 'AI短剧批量生成前为什么要先小额测试？',
+      a: '批量任务会放大失败重试、超时、回调异常和多版本生成带来的成本。先做小额测试，可以先核对 usage log、raw quota 和后台账单记录。'
     },
     {
-      q: 'OpenRouter credits 和 usage 是一回事吗？',
-      a: '不完全一样。credits 是预存余额，usage 记录实际消耗。credits 可能因服务商定价、折扣、失败请求处理等因素与预期扣除有差异。建议小额测试后对照 credits 余额变化和 usage 记录进行对账。'
+      q: '图片生成和商品图 API 怎么计费？',
+      a: '不同平台可能按张数、分辨率、输入图、输出图、背景替换、图生图或编辑任务计费。正式批量生成前建议先用小额请求验证。'
     },
     {
-      q: '视频生成失败会扣费吗？',
-      a: '不同服务商的规则不同。视频生成任务通常是异步提交，涉及轮询、回调或超时机制。失败是否扣费需要结合 request_id、task_id、usage 和后台记录综合判断，不能一概而论。'
+      q: '失败、超时、取消任务时如何判断是否产生费用？',
+      a: '不同供应商规则不同。失败、超时、取消任务和回调异常是否产生费用，需要结合 task_id、request_id、usage log、raw quota 和账单记录综合判断。'
     },
     {
-      q: '如何先小额测试？',
-      a: '建议流程：1. 查模型是否可见和可用；2. 查价格单位和计费标准；3. 发小额请求；4. 查看 usage 返回；5. 对照后台余额变化；6. 确认无误后再扩大调用。'
+      q: 'Coding Agent 为什么也容易烧余额？',
+      a: 'Claude Code、OpenClaw、Kilo Code、Cline 和 Cursor 等 Agent 工具会涉及长上下文读取、工具调用、多轮循环和重试，token 成本可能显著放大。'
     }
   ],
   
   hero: {
-    h1: 'AI API 价格指南：模型 API 价格、Token 成本与扣费透明',
-    subtitle: '整理 Claude Code、OpenRouter、DeepSeek、通义千问、Kimi、Qwen、豆包、GPT Image、可灵、即梦、Seedance 等 API 的价格结构、Token 成本、credits、视频生成扣费、失败请求扣费和小额测试方法。',
+    h1: 'AI API 价格、视频生成成本与扣费透明指南',
+    subtitle: '比较 AI 视频生成、图片生成、AI短剧、Coding Agent 与多模型 API 的成本、失败扣费、超时、回调和小额测试方法。',
     tags: ['价格结构', '扣费透明', '小额测试'],
     ledgerTitle: '价格账本说明',
     ledgerContent: '本指南整理 API 价格结构和计费逻辑，帮助开发者在接入前理解：多少钱、怎么扣、怎么对账、余额为什么消耗快、失败是否扣费、如何小额测试。'
@@ -166,24 +177,24 @@ export const siteConfig = {
   
   fourQuestions: [
     {
-      q: 'Claude Code 为什么烧 token？',
-      href: '/claude-code-token-cost/',
-      description: '长上下文、文件读取、工具调用、多轮循环'
+      q: '视频生成 API 为什么更贵？',
+      href: '/video-generation-api-cost/',
+      description: '秒数、任务、分辨率、音频、参考图和失败重试都会影响成本'
     },
     {
-      q: 'OpenRouter credits / 余额怎么扣？',
-      href: '/openrouter-yue/',
-      description: '预存余额、usage 记录、API Key 对账'
+      q: 'AI短剧批量生成成本怎么估？',
+      href: '/ai-short-drama-api-cost/',
+      description: '多镜头、多版本、批量任务、失败重试与回调都会放大预算'
     },
     {
-      q: '视频生成 API 为什么比文本 API 更贵？',
-      href: '/shipin-shengcheng-api-jiage/',
-      description: '按秒/credit/任务计费、异步任务、失败扣费判断'
+      q: '图片生成和商品图 API 怎么计费？',
+      href: '/product-image-api-price/',
+      description: '按张数、分辨率、输入图、输出图和编辑任务计费'
     },
     {
-      q: '请求失败、stream 中断、tool call 时怎么判断扣费？',
-      href: '/api-koufei-yichang/',
-      description: '401/403/超时、重试、流式中断的扣费逻辑'
+      q: '失败、超时、回调异常时怎么判断扣费？',
+      href: '/video-generation-timeout/',
+      description: '结合 task_id、request_id、usage log、raw quota 与后台账单综合判断'
     }
   ]
 };

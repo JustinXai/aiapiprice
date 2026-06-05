@@ -1,0 +1,98 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: 'AI 视频生成 API 价格：可灵、即梦、Seedance 与文生视频成本入口',
+  metaDescription: '整理 AI 视频生成 API 的价格入口，覆盖可灵、即梦、Seedance、Veo、Sora、文生视频、图生视频、任务时长与失败重试。',
+  h1: 'AI 视频生成 API 价格：可灵、即梦、Seedance 与文生视频成本入口',
+  category: '视频生成价格',
+  aiSummary: 'AI 视频生成 API 价格页聚焦 AI 视频生成 API、文生视频、图生视频、可灵、即梦、Seedance、任务时长、分辨率、credit、失败重试、超时、回调和小额测试。本站不承诺最低价，不替代官方文档，也不承诺失败场景一定免费，开发者应结合 task_id、usage log、raw quota 和账单记录综合判断。',
+  faq: [
+    { q: 'AI 视频生成 API 常见怎么计费？', a: '不同平台可能按秒、任务、分辨率、credit、模型或重试策略计费。正式批量调用前建议先查价格单位并做小额测试。' },
+    { q: '失败或超时会不会产生费用？', a: '失败、超时、取消任务和回调异常是否产生费用，需要以实际供应商规则、usage log、raw quota 和账单记录为准。' },
+  ],
+  updatedAt: '2026-06-05',
+  internalLinks: ['/video-generation-api-cost/', '/image-to-video-api-cost/', '/video-generation-timeout/', '/keling-api-jiage/', '/jimeng-api-price/'],
+  ctaEnabled: true,
+  status: 'scaffold' as const
+};
+---
+
+<ArticleLayout
+  title={pageData.title}
+  description={pageData.metaDescription}
+  h1={pageData.h1}
+  updatedAt={pageData.updatedAt}
+  category={pageData.category}
+  aiSummary={pageData.aiSummary}
+  faq={pageData.faq}
+  internalLinks={pageData.internalLinks}
+  ctaEnabled={pageData.ctaEnabled}
+  status={pageData.status}
+>
+  <div class="scaffold-content">
+    <h2>Quick Answer / 先给结论</h2>
+    <p>AI 视频生成 API 的价格结构通常比文本 API 更复杂，不同平台可能按秒、任务、分辨率、credit、模型档位或失败重试策略计费。批量生成前建议先做小额测试，再看 usage log、raw quota、task_id 和后台账单记录。</p>
+
+    <h2>适合谁</h2>
+    <ul>
+      <li>准备接入可灵、即梦、Seedance、Veo、Sora 等视频能力的开发者</li>
+      <li>需要比较文生视频、图生视频和异步任务成本的人</li>
+      <li>关心失败任务、超时、回调与扣费透明的团队</li>
+    </ul>
+
+    <h2>成本受什么影响</h2>
+    <ul>
+      <li>视频秒数与分辨率</li>
+      <li>模型版本与画质档位</li>
+      <li>文生视频或图生视频</li>
+      <li>参考图、参考视频、音频和多版本输出</li>
+      <li>失败重试、超时补跑和回调处理</li>
+    </ul>
+
+    <h2>常见扣费单位</h2>
+    <ul>
+      <li>按秒</li>
+      <li>按任务</li>
+      <li>按 credit / 积分</li>
+      <li>按分辨率或模型档位</li>
+    </ul>
+
+    <h2>失败、超时、重试是否可能产生费用</h2>
+    <p>可能。失败、超时、取消任务和回调异常是否扣费，需要以实际供应商规则、usage log、raw quota、task_id 和账单记录为准，不能只看客户端是否返回成功。</p>
+
+    <h2>小额测试建议</h2>
+    <ol>
+      <li>先从最短视频、最低分辨率开始</li>
+      <li>记录 request_id、task_id、callback_url</li>
+      <li>核对 usage log、raw quota 与后台账单</li>
+      <li>确认单任务成本后再批量生成</li>
+    </ol>
+
+    <h2>常见错误</h2>
+    <ul>
+      <li>只看接口超时，不看后台任务是否继续运行</li>
+      <li>没有保留 task_id，导致后续无法对账</li>
+      <li>直接批量跑高分辨率任务，放大失败重试成本</li>
+    </ul>
+
+    <h2>相关页面</h2>
+    <ul>
+      <li><a href="/video-generation-api-cost/">视频生成 API 成本</a></li>
+      <li><a href="/image-to-video-api-cost/">图生视频 API 成本</a></li>
+      <li><a href="/video-generation-timeout/">视频生成超时是否扣费</a></li>
+      <li><a href="/keling-api-jiage/">可灵 API 价格</a></li>
+      <li><a href="/jimeng-api-price/">即梦 API 价格</a></li>
+    </ul>
+
+    <div class="pricing-notice">
+      <strong>价格和可用性说明：</strong>价格和模型可用性可能变化。开发者应定期查看官方文档、后台模型列表和最新价格更新，以服务商官方信息为准。
+    </div>
+  </div>
+</ArticleLayout>
+
+<style>
+  .scaffold-content h2 { font-size: 1.25rem; margin-bottom: var(--spacing-md); }
+  .scaffold-content ul, .scaffold-content ol { margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }
+  .scaffold-content li { margin-bottom: var(--spacing-sm); }
+</style>
