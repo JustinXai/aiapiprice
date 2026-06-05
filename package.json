@@ -23,7 +23,7 @@
     "validate:prompt-residue": "node scripts/validate-prompt-residue.mjs",
     "validate:cross-project": "node scripts/validate-cross-project-contamination.mjs",
     "validate:jsonld": "node scripts/validate-jsonld.mjs",
-    "verify": "npm run build && npm run validate:title-meta-h1 && npm run validate:canonical && npm run validate:placeholders && npm run validate:claims && npm run validate:cta && npm run validate:sitemap-llms && npm run validate:pricing-freshness && npm run validate:official-wording && npm run validate:prompt-residue && npm run validate:cross-project && npm run validate:jsonld",
+    "verify": "npm run build && npm run generate:sitemap && npm run generate:llms && npm run validate:title-meta-h1 && npm run validate:canonical && npm run validate:placeholders && npm run validate:claims && npm run validate:cta && npm run validate:sitemap-llms && npm run validate:pricing-freshness && npm run validate:official-wording && npm run validate:prompt-residue && npm run validate:cross-project && npm run validate:jsonld",
     "verify:live": "node scripts/verify-live.mjs"
   },
   "dependencies": {

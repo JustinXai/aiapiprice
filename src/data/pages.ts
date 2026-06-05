@@ -105,7 +105,7 @@ export const pages: PageData[] = [
   {
     slug: 'deepseek-api-price',
     title: 'DeepSeek API 价格：DeepSeek V3/R1 模型 API 费用结构',
-    metaDescription: '整理 DeepSeek V3、DeepSeek R1 等模型的 API 价格结构、计费单位和成本优化建议。',
+    metaDescription: '整理 DeepSeek V3、DeepSeek R1 等模型的 API 价格结构、计费单位和成本优化建议。建议小额测试。',
     h1: 'DeepSeek API 价格：DeepSeek V3/R1 模型 API 费用结构',
     category: 'model-price',
     targetKeywords: ['DeepSeek API 价格', 'deepseek api price', 'DeepSeek V3 API', 'DeepSeek R1 API'],
@@ -123,7 +123,7 @@ export const pages: PageData[] = [
   {
     slug: 'kimi-api-price',
     title: 'Kimi API 价格：Kimi 长上下文模型 API 费用',
-    metaDescription: '整理 Kimi 长上下文模型的 API 价格结构、Token 计费单位和成本优化建议。',
+    metaDescription: '整理 Kimi 长上下文模型的 API 价格结构、Token 计费单位、成本优化建议和可用模型列表。',
     h1: 'Kimi API 价格：Kimi 长上下文模型 API 费用',
     category: 'model-price',
     targetKeywords: ['Kimi API 价格', 'kimi api price', 'Kimi 长上下文'],
@@ -141,7 +141,7 @@ export const pages: PageData[] = [
   {
     slug: 'qwen-api-price',
     title: 'Qwen API 价格：通义千问 Qwen 系列模型 API 费用',
-    metaDescription: '整理通义千问 Qwen 系列模型的 API 价格结构、Token 计费单位和成本优化建议。',
+  metaDescription: '整理通义千问 Qwen 系列模型的 API 价格结构、Token 计费单位、成本优化建议和可用模型列表。',
     h1: 'Qwen API 价格：通义千问 Qwen 系列模型 API 费用',
     category: 'model-price',
     targetKeywords: ['Qwen API 价格', 'qwen api price', '通义千问 API'],
@@ -159,7 +159,7 @@ export const pages: PageData[] = [
   {
     slug: 'doubao-api-price',
     title: '豆包 API 价格：字节豆包模型 API 费用结构',
-    metaDescription: '整理字节豆包模型的 API 价格结构、Token 计费单位和成本优化建议。',
+  metaDescription: '整理字节豆包模型的 API 价格结构、Token 计费单位、成本优化建议和可用模型列表。',
     h1: '豆包 API 价格：字节豆包模型 API 费用结构',
     category: 'model-price',
     targetKeywords: ['豆包 API 价格', 'doubao api price', '字节豆包 API'],
@@ -177,7 +177,7 @@ export const pages: PageData[] = [
   {
     slug: 'tongyi-qianwen-api-price',
     title: '通义千问 API 价格：阿里云通义千问模型 API 费用',
-    metaDescription: '整理阿里云通义千问模型的 API 价格结构、Token 计费单位和成本优化建议。',
+    metaDescription: '整理阿里云通义千问模型的 API 价格结构、Token 计费单位，成本优化建议和可用模型列表。建议小额测试。',
     h1: '通义千问 API 价格：阿里云通义千问模型 API 费用',
     category: 'model-price',
     targetKeywords: ['通义千问 API 价格', 'tongyi qianwen api price', '阿里云通义千问'],
@@ -249,7 +249,7 @@ export const pages: PageData[] = [
   {
     slug: 'openai-api-billing',
     title: 'OpenAI API 账单：理解 OpenAI 账单结构与扣费逻辑',
-    metaDescription: '解释 OpenAI API 账单的结构、扣费逻辑、计费周期和对账方法。',
+    metaDescription: '解释 OpenAI API 账单的结构、扣费逻辑、计费周期和对账方法，包括小额测试和余额核对建议。',
     h1: 'OpenAI API 账单：理解 OpenAI 账单结构与扣费逻辑',
     category: 'openai',
     targetKeywords: ['OpenAI API 账单', 'openai billing', 'OpenAI 扣费'],
@@ -285,7 +285,7 @@ export const pages: PageData[] = [
   {
     slug: 'request-failed-billing',
     title: '请求失败扣费：401/403/404/500 错误是否扣费',
-    metaDescription: '解释 API 请求失败时是否扣费的判断方法，包括 401、403、404、500 等错误码的处理。',
+    metaDescription: '解释 API 请求失败时是否扣费的判断方法，包括 401、403、404、500 等错误码的处理。小额测试建议。',
     h1: '请求失败扣费：401/403/404/500 错误是否扣费',
     category: 'billing',
     targetKeywords: ['请求失败扣费', 'API 401 扣费', 'API 403 扣费', 'API 错误扣费'],
@@ -321,7 +321,7 @@ export const pages: PageData[] = [
   {
     slug: 'streaming-interrupted-billing',
     title: '流式中断扣费：stream 中断、超时是否扣费',
-    metaDescription: '解释流式 API（streaming）在连接中断、超时情况下的扣费判断和解决建议。',
+    metaDescription: '解释流式 API（streaming）在连接中断、超时情况下的扣费判断和解决建议。小额测试建议。',
     h1: '流式中断扣费：stream 中断、超时是否扣费',
     category: 'billing',
     targetKeywords: ['流式中断扣费', 'streaming 扣费', 'stream 超时', 'SSE 断开'],
@@ -572,7 +572,7 @@ export const pages: PageData[] = [
   },
   {
     slug: 'ai-agent-token-cost',
-    title: 'AI Agent Token 成本：Claude Code、Cline、Cursor 与 tool call 成本入口',
+    title: 'AI Agent Token 成本：Claude Code、Cline、Cursor 与 tool call',
   metaDescription: '整理 AI Agent Token 成本，覆盖 Claude Code、OpenClaw、Kilo Code、Cline、Cursor、tool call、多轮循环、上下文读取、usage 对账和小额测试。',
     h1: 'AI Agent Token 成本：Claude Code、Cline、Cursor 与 tool call 成本入口',
     category: 'claude-code',
