@@ -9,7 +9,7 @@ const pageData = {
   aiSummary: '可灵 API 价格页面整理可灵视频生成、Kling API price、图生视频、失败任务、回调、超时和小额测试相关信息。价格和模型可用性可能变化，请以官方文档、后台模型列表、task_id、usage log 和账单记录为准。',
   faq: [
     { q: '可灵 API 价格是多少？', a: '价格和模型可用性可能变化，请以可灵官方文档、后台模型列表和最新价格更新为准。' },
-    { q: '可灵视频生成失败扣费吗？', a: '根据可灵官方 API 文档，失败任务通常仍会消耗 credits 或产生费用。具体扣费规则请以可灵官方最新文档和 usage 记录为准。本规则仅适用于可灵官方 API，不适用于其他视频生成平台。' },
+    { q: '可灵视频生成失败扣费吗？', a: '根据可灵官方 API 预付资源包计费文档，失败任务不扣除 credits，包括因内容审核策略失败的任务。该规则仅适用于可灵官方 API 文档描述的计费方式，不适用于其他视频生成平台、第三方聚合 API 或其他供应商。' },
     { q: '图生视频为什么比文生视频成本更不直观？', a: '图生视频需要处理输入图片，加上视频秒数、分辨率、音频和模式（mode）等多个维度，费用结构比文生视频复杂。建议通过小额测试先摸清单次成本。' },
   ],
   updatedAt: '2026-06-10',
@@ -64,6 +64,7 @@ const pageData = {
       <li>Motion Control 附加：+2 credits / 秒</li>
     </ul>
     <p>credits 单价因购买渠道和资源包类型不同而变化，请以可灵官方定价页和后台资源包记录为准。</p>
+    <p><strong>计费口径提醒：</strong>Kling VIDEO 3.0 模型说明里的 credits/s 与 Kling API product billing 里的预付资源包 unit deduction 可能是不同展示口径。页面里的 credits/s 数字来自模型说明，实际 API 调用时的扣费单位以当前官方 API Billing 页面、后台资源包记录和 task 记录中的 final_unit_deduction 为准，不要把所有数字混成一个固定价格。</p>
 
     <h3>分辨率</h3>
     <p>同一时长下，1080p 比 720p 消耗更多 credits。免费版仅支持 720p，1080p 及以上需要付费计划。</p>
@@ -88,15 +89,16 @@ const pageData = {
     <p>建议先用最短时长（5s）和最低分辨率做小额测试，确认单次消耗后再扩大规模。</p>
 
     <h2>失败任务是否扣费</h2>
-    <p><strong>重要声明：以下内容仅基于可灵官方 API 文档口径，不能泛化到其他视频生成平台。</strong></p>
-    <p>根据可灵官方 VIDEO 3.0 Model User Guide（2026 年 2 月发布），失败的任务通常仍会消耗 credits。这意味着：</p>
+    <p><strong>重要声明：以下内容仅基于可灵官方 API 预付资源包计费文档口径，不能泛化到其他视频生成平台、第三方聚合 API 或其他供应商。</strong></p>
+    <p>根据可灵官方 API Billing 文档：No credits will be deducted for failed tasks, regardless of the reason for failure, including failures due to content moderation policies。</p>
+    <p>这意味着：</p>
     <ul>
-      <li>任务提交成功但生成失败：可能已消耗 credits</li>
-      <li>超时取消：可能已消耗部分 credits</li>
-      <li>回调异常：后台任务状态和 credits 消耗以官方记录为准</li>
+      <li>任务提交成功但生成失败：不扣除 credits</li>
+      <li>因内容审核策略失败：不扣除 credits</li>
+      <li>超时、系统异常等：均不扣除 credits</li>
     </ul>
-    <p>建议通过可灵后台的任务列表和 usage 记录核对扣费，不要仅依赖客户端返回状态判断。</p>
-    <p><strong>本规则仅适用于可灵官方 API，不适用于其他视频生成平台。</strong>其他平台（Runway、Veo、即梦等）的失败扣费规则可能完全不同，请单独核查。</p>
+    <p>实际排查仍要结合 task_id、task_status、final_unit_deduction、后台账单和供应商文档核对。</p>
+    <p><strong>本规则仅适用于可灵官方 API 预付资源包计费方式，不适用于其他视频生成平台、第三方聚合 API 或其他供应商。</strong>其他平台（Runway、Veo、即梦等）的失败扣费规则可能完全不同，请单独核查。</p>
 
     <h2>AI短剧 / 商品视频批量生成为什么要先小额测试</h2>
     <p>AI 短剧和商品视频的批量生成通常涉及：</p>
@@ -106,10 +108,10 @@ const pageData = {
       <li>失败重试：出图不满意重新生成</li>
       <li>回调补跑：超时后手动触发重新回调</li>
     </ul>
-    <p>以上每一步都可能产生额外的 API 调用和 credits 消耗。建议先用 1-2 条视频做完整链路测试，确认：</p>
+    <p>以上每一步都可能产生额外的 API 调用和费用。建议先用 1-2 条视频做完整链路测试，确认：</p>
     <ol>
-      <li>单条 5s 视频的 credits 消耗</li>
-      <li>失败重试一次额外消耗多少</li>
+      <li>单条 5s 视频的最终扣费（final_unit_deduction）</li>
+      <li>失败重试一次是否额外扣费</li>
       <li>回调状态和后台记录是否一致</li>
     </ol>
     <p>再按比例放大到全量规模。</p>
