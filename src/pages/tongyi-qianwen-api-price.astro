@@ -8,11 +8,20 @@ const pageData = {
   category: '模型 API 价格',
   aiSummary: '通义千问 API 价格页面整理阿里云通义千问模型的 API 价格信息。价格和模型可用性可能变化，请以官方文档与后台记录为准。',
   faq: [
-    { q: '通义千问 API 价格是多少？', a: '价格和模型可用性可能变化，请以官方文档、后台模型列表和最新价格更新为准。' },
+    { q: '通义千问 API 价格是多少？', a: '价格和模型可用性可能变化，请以阿里云官方文档、后台模型列表和最新价格更新为准。' },
     { q: '通义千问和 Qwen 是什么关系？', a: '通义千问是阿里云的 AI 模型品牌，Qwen 是其开源模型系列。具体使用请以官方文档为准。' },
+    { q: '通义千问 API 价格和 Qwen API 价格是不是一回事？', a: '通义千问是阿里云百炼平台的商业模型品牌，Qwen 通常指开源社区模型系列。两者可能共享底层模型技术，但定价、API 端点、调用方式和消费方式可能不同。接入前应确认是在百炼平台还是开源渠道调用。' },
+    { q: '为什么同样请求费用可能不同？', a: '模型版本、输入 token 数、输出 token 数、上下文长度、多轮对话轮次、工具调用和缓存命中率都可能导致同一接口的两次请求费用不同。建议通过 usage API 对照账单。' },
   ],
-  updatedAt: '2026-06-03',
-  internalLinks: ['/qwen-api-price/', '/deepseek-api-price/', '/kimi-api-price/', '/claude-code-token-cost/'],
+  updatedAt: '2026-06-10',
+  internalLinks: [
+    '/qwen-api-price/',
+    '/api-koufei-yichang/',
+    '/small-budget-api-test/',
+    '/ai-agent-token-cost/',
+    '/deepseek-api-price/',
+    '/kimi-api-price/',
+  ],
   ctaEnabled: true,
   status: 'scaffold' as const
 };
@@ -31,22 +40,58 @@ const pageData = {
   status={pageData.status}
 >
   <div class="scaffold-content">
-    <h2>通义千问 API 价格说明</h2>
-    <p>本页为阿里云通义千问 API 价格结构说明页，完整内容正在补充中。</p>
-    
-    <h3>目标关键词</h3>
+    <h2>Quick Answer / 先给结论</h2>
+    <p>通义千问 API 成本通常要结合模型、输入 token、输出 token、上下文长度、多模态能力、后台 usage 和账单记录判断。没有单一数字能回答"通义千问 API 多少钱"，因为同一模型在不同调用方式下费用可能不同。</p>
+
+    <h2>适合谁</h2>
     <ul>
-      <li>通义千问 API 价格</li>
-      <li>tongyi qianwen api price</li>
-      <li>阿里云通义千问</li>
+      <li>要在阿里云百炼平台接入通义千问模型的开发者</li>
+      <li>想了解 Token 计费结构的团队</li>
+      <li>关心账单和 usage 对账的开发者和运营</li>
     </ul>
 
-    <h3>参考资源</h3>
+    <h2>阿里云百炼 / DashScope / 通义千问 / Qwen 名称关系</h2>
+    <p>这几个名称经常让开发者困惑，它们之间有如下关系：</p>
     <ul>
-      <li>阿里云通义千问官方 API 文档</li>
-      <li>阿里云后台模型列表</li>
-      <li>最新价格更新公告</li>
+      <li><strong>通义千问（Tongyi Qianwen）</strong>：阿里云对内对外的 AI 模型品牌，覆盖商业和开源模型。</li>
+      <li><strong>阿里云百炼（Alibaba Cloud Bailian）</strong>：阿里云的模型 API 开放平台，聚合了通义千问系列商业模型及其他第三方模型。百炼平台提供统一的 API 调用方式和账单管理。</li>
+      <li><strong>DashScope</strong>：百炼平台的前身/别名，部分旧文档和 SDK 仍使用 DashScope 名称。</li>
+      <li><strong>Qwen</strong>：通义千问的开源模型系列（Qwen2、Qwen2.5 等），在 Hugging Face、ModelScope 等社区发布。开源版与百炼商业版定价和调用方式不同。</li>
     </ul>
+    <p>如果搜索"通义千问 API 价格"和"qwen api 价格"得到不同结果，可能就是因为两个名称对应不同消费渠道。建议确认调用的是百炼平台还是开源模型。</p>
+
+    <h2>通义千问 API 计费维度</h2>
+    <ul>
+      <li><strong>模型档位</strong>：不同模型（如 qwen-turbo、qwen-plus、qwen-max）价格不同，max 通常最贵</li>
+      <li><strong>输入 token 数</strong>：发过去的 prompt 和上下文消耗输入 token</li>
+      <li><strong>输出 token 数</strong>：模型返回的内容消耗输出 token</li>
+      <li><strong>上下文长度</strong>：长上下文模型的单次调用可能包含大量 token</li>
+      <li><strong>多模态能力</strong>：视觉、音频等多模态输入可能单独计费</li>
+      <li><strong>API 路由</strong>：通过百炼平台还是 OpenRouter 等第三方调用，计费单位可能不同</li>
+    </ul>
+
+    <h2>小额测试流程</h2>
+    <p>建议按以下顺序操作，不要直接跑大并发：</p>
+    <ol>
+      <li>确认模型是否在后台可见（有些模型需要单独开通）</li>
+      <li>确认计费单位是 Token 还是其他单位</li>
+      <li>发最小 prompt 测试一次，记录 request_id</li>
+      <li>查看 usage 记录或后台账单，确认单次消耗</li>
+      <li>对照余额变化，确认扣费符合预期</li>
+      <li>再逐步扩大上下文和调用量</li>
+    </ol>
+    <p>完整小额测试流程见 <a href="/small-budget-api-test/">小额测试 API 完整流程</a>。</p>
+
+    <h2>常见问题</h2>
+
+    <h3>通义千问 API 价格和 Qwen API 价格是不是一回事？</h3>
+    <p>不一定。通义千问通常指阿里云百炼平台的商业模型，Qwen 通常指开源社区模型。两者定价、端点、消费方式可能不同，接入前应确认。</p>
+
+    <h3>为什么同样请求费用可能不同？</h3>
+    <p>模型版本、输入输出 token 数、上下文长度、缓存命中率和调用渠道都可能导致费用差异。通过 usage API 和 request_id 对照账单是最可靠的方式。</p>
+
+    <h3>通义千问 API 计费是按 Token 还是按请求？</h3>
+    <p>具体计费单位请以阿里云百炼平台官方定价页为准。不同模型可能采用不同计费方式。</p>
 
     <div class="pricing-notice">
       <strong>价格和可用性说明：</strong>通义千问 API 的价格和模型可用性可能变化。请以阿里云官方文档、后台模型列表和最新价格更新为准。扣费判断需要结合 request_id、usage 和后台账单记录综合分析。
@@ -55,8 +100,10 @@ const pageData = {
 </ArticleLayout>
 
 <style>
-  .scaffold-content h2 { font-size: 1.25rem; margin-bottom: var(--spacing-md); }
-  .scaffold-content h3 { font-size: 1rem; margin-top: var(--spacing-xl); margin-bottom: var(--spacing-md); }
-  .scaffold-content ul { margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }
+  .scaffold-content h2 { font-size: 1.25rem; margin-bottom: var(--spacing-md); margin-top: var(--spacing-xl); }
+  .scaffold-content h3 { font-size: 1rem; margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); }
+  .scaffold-content ul, .scaffold-content ol { margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }
   .scaffold-content li { margin-bottom: var(--spacing-sm); }
+  .scaffold-content p { margin-bottom: var(--spacing-md); }
+  .scaffold-content a { color: var(--color-primary, #4f46e5); text-decoration: underline; }
 </style>
