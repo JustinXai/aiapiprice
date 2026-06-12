@@ -29,6 +29,7 @@ const pages = [
   { url: '/doubao-api-price/', title: '豆包 API 价格：字节豆包模型 API 费用结构' },
   { url: '/tongyi-qianwen-api-price/', title: '通义千问 API 价格：阿里云通义千问模型 API 费用' },
   { url: '/claude-api-price/', title: 'Claude API 价格：Claude 3.5/4 模型 API 费用结构' },
+  { url: '/claude-fable-5-api-jiage/', title: 'Claude Fable 5 API 价格：Input、Output、缓存和各平台费用' },
   { url: '/gemini-api-price/', title: 'Gemini API 价格：Google Gemini 模型 API 费用结构' },
   { url: '/openai-api-usage/', title: 'OpenAI API usage：GPT-4o/GPT-4o-mini API 使用量与账单' },
   { url: '/openai-api-billing/', title: 'OpenAI API 账单：理解 OpenAI 账单结构与扣费逻辑' },

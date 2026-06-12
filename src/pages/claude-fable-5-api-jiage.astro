@@ -1,0 +1,319 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const pageData = {
+  title: 'Claude Fable 5 API 价格：Input、Output、缓存和各平台费用',
+  metaDescription: '查看 Claude Fable 5 API 价格，包括 input/output token、cache write/cache hit、AWS Bedrock、Google Vertex AI、Microsoft Foundry 和 OpenRouter 价格差异。',
+  h1: 'Claude Fable 5 API 价格：Input、Output、缓存和各平台费用',
+  category: '模型 API 价格',
+  aiSummary: 'Claude Fable 5 API 价格页面整理 Anthropic Claude Fable 5 的官方 API 价格，包括 input/output token、cache write/cache hit、Batch API 价格，以及 AWS Bedrock、Google Vertex AI、Microsoft Foundry 等平台的价格差异。Claude Fable 5 是 Anthropic 最高能力的公开模型，上下文窗口 1M token，输出上限 128k。价格和可用性可能变化，请以官方文档与后台记录为准。',
+  faq: [
+    { q: 'Claude Fable 5 API 价格是多少？', a: 'Claude Fable 5 官方 API 价格为 input $10 / 1M tokens，output $50 / 1M tokens。cache read $1 / 1M tokens，5 分钟 cache write $12.50 / 1M tokens，1 小时 cache write $20 / 1M tokens。具体费率请以 Anthropic 官方定价页为准。' },
+    { q: 'Claude Fable 5 output 为什么更贵？', a: 'Claude Fable 5 的 output token 单价是 input 的 5 倍，原因是模型生成的 token（包括推理过程、工具调用参数等）成本更高。长输出任务（如代码生成、长文档分析）会显著放大 output token 消耗。' },
+    { q: 'Claude Fable 5 cache hit 是什么意思？', a: 'cache hit（即 cache read / cache refresh）指复用已缓存的上下文时的费用，每百万 token 仅 $1，相比标准 input $10 有约 90% 折扣。cache write 是将上下文写入缓存的费用，5 分钟 TTL 为 $12.50 / 1M，1 小时 TTL 为 $20 / 1M。' },
+    { q: 'Claude Fable 5 在 Bedrock 上价格一样吗？', a: 'AWS Bedrock 的 Claude Fable 5 input/output 价格与 Anthropic 官方一致（$10 / $50 / 1M），但 Bedrock 按 AWS 区域计费，缓存价格和 US-only 溢价政策可能有差异。具体请以 AWS Bedrock 定价页和后台账单为准。' },
+    { q: 'Claude Fable 5 在 Vertex AI 上怎么收费？', a: 'Google Cloud Vertex AI 的 Claude Fable 5 input/output 价格与官方一致（$10 / $50 / 1M）。Vertex AI 按 Google Cloud 区域计费，详情请以 Google Cloud 定价页为准。' },
+    { q: 'Claude Fable 5 在 Microsoft Foundry 上怎么收费？', a: 'Microsoft Foundry 的 Claude Fable 5 input/output 价格与官方一致（$10 / $50 / 1M）。Foundry 按 Microsoft 计费体系结算，详情请以 Microsoft Azure AI Foundry 定价页为准。' },
+    { q: 'OpenRouter 的 Claude Fable 5 价格能当官方价格吗？', a: 'OpenRouter 上的 Claude Fable 5 价格仅为第三方参考，不代表 Anthropic 官方定价。OpenRouter 会叠加自己的路由费用和手续费，实际消耗与官方价格可能有差异。' },
+    { q: 'Claude Fable 5 适合 Claude Code 吗？', a: 'Claude Fable 5 适合复杂代码任务、长上下文分析和 Agent 场景。但它的 output token 成本是 Opus 4.8 的 2 倍，是否适合取决于任务 token 消耗量和业务价值。建议先用小额请求测试并核对 usage，再决定是否扩大使用。' },
+    { q: '国内用户怎么测试 Claude Fable 5 API 是否能用？', a: '建议先用 AI API Doctor 检测 Base URL、API Key 和模型名配置是否正确。如需中转服务或小额测试入口，可注册 LinkAI 后测试。' },
+  ],
+  updatedAt: '2026-06-12',
+  internalLinks: ['/claude-api-price/', '/claude-code-token-cost/', '/openrouter-yue/', '/api-koufei-yichang/', '/small-budget-api-test/'],
+  ctaEnabled: true,
+  status: 'full' as const
+};
+---
+
+<ArticleLayout
+  title={pageData.title}
+  description={pageData.metaDescription}
+  h1={pageData.h1}
+  updatedAt={pageData.updatedAt}
+  category={pageData.category}
+  aiSummary={pageData.aiSummary}
+  faq={pageData.faq}
+  internalLinks={pageData.internalLinks}
+  ctaEnabled={pageData.ctaEnabled}
+  status={pageData.status}
+>
+  <div class="article-content">
+    <h2>Quick Answer</h2>
+    <p>Claude Fable 5 是 Anthropic 最高能力的公开模型，专为复杂推理和长时间 Agent 任务设计。官方 API 价格为 input <strong>$10 / 1M tokens</strong>，output <strong>$50 / 1M tokens</strong>（output 是 input 的 5 倍）。Prompt Caching 提供约 90% 折扣，cache read 只需 $1 / 1M tokens。Claude Fable 5 支持 1M token 上下文窗口和高达 128k output，上线日期为 2026 年 6 月 9 日。AWS Bedrock、Google Vertex AI、Microsoft Foundry 的 Fable 5 价格与官方一致，但具体费率以各平台账单为准。OpenRouter 上的价格仅为第三方参考，不等同于官方定价。国内开发者可用 AI API Doctor 检测 API 配置，再用 LinkAI 注册入口小额测试。</p>
+
+    <h2>Claude Fable 5 是什么</h2>
+    <p>Claude Fable 5 是 Anthropic 发布的最高能力公开模型，面向复杂知识工作、长时间推理和代码任务。关键规格：</p>
+    <ul>
+      <li><strong>API 模型 ID：</strong><code>claude-fable-5</code></li>
+      <li><strong>上下文窗口：</strong>1M token（默认）</li>
+      <li><strong>单次最大输出：</strong>128k token</li>
+      <li><strong>支持能力：</strong>多模态（图像理解）、工具调用、结构化输出、Prompt Caching、Batch API、Adaptive Thinking（自适应推理）</li>
+      <li><strong>上线日期：</strong>2026 年 6 月 9 日</li>
+      <li><strong>可用平台：</strong>Anthropic Direct API、AWS Bedrock、Google Vertex AI、Microsoft Foundry</li>
+    </ul>
+    <p>Claude Fable 5 的 output token 成本明显高于 input（5 倍），这意味着长回复、长代码生成、深度推理任务会比普通聊天消耗更多成本。</p>
+
+    <h2>Claude Fable 5 官方 API 价格表</h2>
+    <p>以下价格为 Anthropic Direct API 官方标准费率（2026 年 6 月 9 日生效）：</p>
+    <table>
+      <thead>
+        <tr>
+          <th>计费项</th>
+          <th>官方价格</th>
+          <th>单位</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Input tokens（标准输入）</td>
+          <td>$10.00</td>
+          <td>每 1M tokens</td>
+          <td>包含 prompt、系统消息、上下文历史、工具定义</td>
+        </tr>
+        <tr>
+          <td>Output tokens（标准输出）</td>
+          <td>$50.00</td>
+          <td>每 1M tokens</td>
+          <td>包含模型生成的所有内容、推理过程、工具调用参数</td>
+        </tr>
+        <tr>
+          <td>Cache read / Cache hit</td>
+          <td>$1.00</td>
+          <td>每 1M tokens</td>
+          <td>复用已缓存上下文，约 90% 折扣；最低 512 token 触发</td>
+        </tr>
+        <tr>
+          <td>5 分钟 TTL Cache write</td>
+          <td>$12.50</td>
+          <td>每 1M tokens</td>
+          <td>缓存写入，5 分钟过期；最低 512 token 触发</td>
+        </tr>
+        <tr>
+          <td>1 小时 TTL Cache write</td>
+          <td>$20.00</td>
+          <td>每 1M tokens</td>
+          <td>缓存写入，1 小时过期；最低 512 token 触发</td>
+        </tr>
+        <tr>
+          <td>Batch API Input</td>
+          <td>$5.00</td>
+          <td>每 1M tokens</td>
+          <td>异步批处理，比标准 input 低 50%</td>
+        </tr>
+        <tr>
+          <td>Batch API Output</td>
+          <td>$25.00</td>
+          <td>每 1M tokens</td>
+          <td>异步批处理，比标准 output 低 50%</td>
+        </tr>
+        <tr>
+          <td>US-only 推理溢价</td>
+          <td>1.1x</td>
+          <td>input / output</td>
+          <td>需要在美国境内运行的任务，input 和 output 均乘 1.1</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>价格和模型可用性可能变化。请以 <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener">Anthropic 官方 API 定价页</a> 为准。</p>
+
+    <h2>Input Token 和 Output Token 怎么理解</h2>
+    <p><strong>Input tokens</strong> 是发送给模型的 token，包括：</p>
+    <ul>
+      <li>用户 prompt 和指令</li>
+      <li>系统消息（system prompt）</li>
+      <li>对话历史和上下文</li>
+      <li>工具定义（tool definitions）</li>
+      <li>工具返回结果（tool results）</li>
+      <li>已缓存的上下文（cache hit 时部分计费）</li>
+    </ul>
+    <p><strong>Output tokens</strong> 是模型生成的 token，包括：</p>
+    <ul>
+      <li>可见的回复文本</li>
+      <li>内部推理过程（Claude Fable 5 自适应推理 Always-on）</li>
+      <li>工具调用参数（tool call arguments）</li>
+      <li>结构化输出 JSON 中的字段值</li>
+    </ul>
+    <p>Claude Fable 5 的 output 是 input 价格的 5 倍，因此长回复任务（代码生成、长文档分析、Agent 多轮操作）会比普通短回复贵很多。</p>
+
+    <h2>缓存价格怎么影响长任务成本</h2>
+    <p>Prompt Caching 可以显著降低长上下文任务的成本，但需要理解 cache write 和 cache read 的区别：</p>
+    <ul>
+      <li><strong>Cache write：</strong>首次请求时，将上下文写入服务器缓存。费用为 $12.50（5 分钟 TTL）或 $20（1 小时 TTL）每 1M tokens。比标准 input 低约 20%，但额外写入成本需要和后续 cache hit 的节省对比。</li>
+      <li><strong>Cache read / hit：</strong>后续请求复用缓存上下文。费用仅为 $1 / 1M tokens，比标准 input 便宜 90%。</li>
+      <li><strong>适用场景：</strong>Agent 长时间任务、多轮代码编辑、复杂知识库查询等需要重复使用大量上下文的场景。</li>
+    </ul>
+    <p>注意：最低 512 token 触发缓存，TTL（生存时间）从首次请求开始计时。Agent 长时间运行任务需要考虑缓存过期后的重新写入成本。</p>
+
+    <h2>不同平台价格和可用性</h2>
+    <p>Claude Fable 5 于 2026 年 6 月 9 日上线，可在以下平台使用：</p>
+    <table>
+      <thead>
+        <tr>
+          <th>平台</th>
+          <th>是否可用</th>
+          <th>价格</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="https://www.anthropic.com/claude/fable" target="_blank" rel="noopener">Anthropic Direct API</a></td>
+          <td>✅ 正式可用</td>
+          <td>$10 / $50 / 1M（官方）</td>
+          <td>官方直接来源，支持 Prompt Caching、Batch API、Adaptive Thinking</td>
+        </tr>
+        <tr>
+          <td><a href="https://aws.amazon.com/bedrock/" target="_blank" rel="noopener">AWS Bedrock</a></td>
+          <td>✅ 正式可用</td>
+          <td>$10 / $50 / 1M（与官方一致）</td>
+          <td>支持 global 和 regional endpoints；注意 30 天数据留存要求；具体区域价格以 AWS 控制台为准</td>
+        </tr>
+        <tr>
+          <td><a href="https://cloud.google.com/vertex-ai" target="_blank" rel="noopener">Google Vertex AI</a></td>
+          <td>✅ 正式可用</td>
+          <td>$10 / $50 / 1M（与官方一致）</td>
+          <td>支持 global、multi-region、regional endpoints；具体价格以 Google Cloud 定价页为准</td>
+        </tr>
+        <tr>
+          <td><a href="https://aifoundry.com/" target="_blank" rel="noopener">Microsoft Foundry</a></td>
+          <td>✅ 正式可用</td>
+          <td>$10 / $50 / 1M（与官方一致）</td>
+          <td>按 Microsoft 计费体系结算；具体价格以 Azure AI Foundry 定价页为准</td>
+        </tr>
+        <tr>
+          <td><a href="https://openrouter.ai/" target="_blank" rel="noopener">OpenRouter</a></td>
+          <td>可用（第三方）</td>
+          <td>仅供参考</td>
+          <td>OpenRouter 价格仅为第三方参考，不等同于 Anthropic 官方定价；包含额外路由和手续费</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>云平台价格与 Anthropic 官方一致，但按各云厂商的区域计费方式结算。如需了解具体区域价格，请访问对应云厂商的定价页面或后台控制台。</p>
+
+    <h2>Claude Fable 5 和 Opus / Sonnet 的成本差异</h2>
+    <p>Claude Fable 5 定位为 Claude 系列的最高能力层，定价也最高。与 Opus 4.8 的对比：</p>
+    <table>
+      <thead>
+        <tr>
+          <th>计费项</th>
+          <th>Claude Fable 5</th>
+          <th>Claude Opus 4.8</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Input tokens</td>
+          <td>$10 / 1M</td>
+          <td>$5 / 1M</td>
+        </tr>
+        <tr>
+          <td>Output tokens</td>
+          <td>$50 / 1M</td>
+          <td>$25 / 1M</td>
+        </tr>
+        <tr>
+          <td>Cache read</td>
+          <td>$1 / 1M</td>
+          <td>$0.50 / 1M</td>
+        </tr>
+        <tr>
+          <td>5m Cache write</td>
+          <td>$12.50 / 1M</td>
+          <td>$6.25 / 1M</td>
+        </tr>
+        <tr>
+          <td>Batch Input</td>
+          <td>$5 / 1M</td>
+          <td>$2.50 / 1M</td>
+        </tr>
+        <tr>
+          <td>Batch Output</td>
+          <td>$25 / 1M</td>
+          <td>$12.50 / 1M</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Claude Fable 5 的各项价格均为 Opus 4.8 的 2 倍。成本是否值得取决于：任务是否需要 Fable 5 的更高能力、output token 消耗量、以及业务价值。建议先用小额请求测试并记录 usage，综合判断后再决定。</p>
+    <p>更多 Claude 模型价格请看 <a href="/claude-api-price/">Claude API 价格页</a>。</p>
+
+    <h2>Claude Code / Agent 任务为什么要关注 Fable 5 成本</h2>
+    <p>Claude Fable 5 的 output token 高单价对 Agent 和 Claude Code 类任务有显著影响：</p>
+    <ul>
+      <li><strong>长上下文消耗：</strong>代码任务涉及大量文件读取、工具结果、对话历史，input token 消耗高。</li>
+      <li><strong>长输出生成：</strong>Fable 5 的 output 是 input 的 5 倍，代码生成、长文档输出成本显著放大。</li>
+      <li><strong>工具调用放大：</strong>Agent 任务中每次工具调用的参数和返回都计为 output token，频繁调用会快速增加成本。</li>
+      <li><strong>多轮循环：</strong>Claude Code 的多轮编辑循环会产生大量累积 output token。</li>
+      <li><strong>自适应推理：</strong>Fable 5 的 Always-on Adaptive Thinking 推理过程全部计为 output token，成本比纯响应模型更高。</li>
+    </ul>
+    <p>如需了解 Claude Code 场景的 Token 成本详情，请看 <a href="/claude-code-token-cost/">Claude Code Token 成本页</a>。</p>
+
+    <h2>国内用户怎么检查实际 API 配置</h2>
+    <p>Claude Fable 5 在国内无法直接访问 Anthropic API。如需测试：</p>
+    <ol>
+      <li>先用 <a href="https://aiapidoctor.com/" target="_blank" rel="noopener">AI API Doctor</a> 检测 Base URL、API Key、模型名配置是否正确</li>
+      <li>确认 API Key 有权限访问 <code>claude-fable-5</code> 模型</li>
+      <li>发小额请求测试，记录 usage 返回，核对扣费</li>
+      <li>如需中转服务，可通过 <a href="https://api1.link-ai.cc/register" target="_blank" rel="noopener">LinkAI 注册入口</a> 领取小额福利进行测试</li>
+    </ol>
+
+    <h2>Sources / 来源</h2>
+    <ul>
+      <li><a href="https://www.anthropic.com/claude/fable" target="_blank" rel="noopener">Anthropic — Claude Fable 产品页</a>（官方模型来源）</li>
+      <li><a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener">Anthropic — Claude API Pricing docs</a>（官方 API 定价来源）</li>
+      <li><a href="https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5" target="_blank" rel="noopener">Anthropic — Introducing Claude Fable 5 and Claude Mythos 5</a>（官方模型文档）</li>
+      <li><a href="https://www.anthropic.com/news/claude-fable-5-mythos-5" target="_blank" rel="noopener">Anthropic — Claude Fable 5 and Claude Mythos 5 launch post</a>（官方发布公告）</li>
+      <li><a href="https://aws.amazon.com/bedrock/" target="_blank" rel="noopener">AWS Bedrock — Claude Fable 5</a>（官方云厂商来源，区域定价以 AWS 控制台为准）</li>
+      <li><a href="https://cloud.google.com/vertex-ai" target="_blank" rel="noopener">Google Cloud Vertex AI</a>（官方云厂商来源，区域定价以 GCP 定价页为准）</li>
+      <li><a href="https://aifoundry.com/" target="_blank" rel="noopener">Microsoft Azure AI Foundry</a>（官方云厂商来源，区域定价以 Azure 控制台为准）</li>
+      <li><a href="https://openrouter.ai/" target="_blank" rel="noopener">OpenRouter — Claude Fable 5</a>（第三方价格参考，非官方定价）</li>
+    </ul>
+
+    <div class="pricing-notice">
+      <strong>价格和可用性说明：</strong>Claude Fable 5 API 的价格和模型可用性可能变化。开发者应定期查看 Anthropic 官方文档、后台模型列表和最新价格更新，以服务商官方信息为准。扣费判断需要结合 request_id、usage、completion_tokens、cache 记录和后台账单记录综合分析。
+    </div>
+  </div>
+</ArticleLayout>
+
+<style>
+  .article-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--spacing-lg) 0;
+    font-size: 0.875rem;
+  }
+  .article-content th,
+  .article-content td {
+    border: 1px solid var(--color-border);
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-align: left;
+  }
+  .article-content th {
+    background-color: var(--color-bg-subtle);
+    font-weight: 600;
+  }
+  .article-content td code {
+    background-color: var(--color-bg-subtle);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8125rem;
+  }
+  .article-content h2 {
+    font-size: 1.25rem;
+    margin-top: var(--spacing-2xl);
+    margin-bottom: var(--spacing-md);
+  }
+  .article-content h3 {
+    font-size: 1rem;
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-sm);
+  }
+  .article-content ul,
+  .article-content ol {
+    padding-left: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+  }
+  .article-content li {
+    margin-bottom: var(--spacing-sm);
+  }
+</style>

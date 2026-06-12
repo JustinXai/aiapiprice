@@ -32,6 +32,7 @@ const urlConfig = [
   { slug: 'doubao-api-price/',            priority: '0.8', changefreq: 'monthly' },
   { slug: 'tongyi-qianwen-api-price/',    priority: '0.8', changefreq: 'monthly' },
   { slug: 'claude-api-price/',            priority: '0.8', changefreq: 'monthly' },
+  { slug: 'claude-fable-5-api-jiage/',   priority: '0.9', changefreq: 'monthly' },
   { slug: 'gemini-api-price/',            priority: '0.8', changefreq: 'monthly' },
   { slug: 'openai-api-usage/',            priority: '0.8', changefreq: 'monthly' },
   { slug: 'openai-api-billing/',          priority: '0.8', changefreq: 'monthly' },
