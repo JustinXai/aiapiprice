@@ -56,7 +56,7 @@ export const siteConfig = {
       name: '模型 API 价格',
       slug: 'model-api-price',
       description: 'DeepSeek、Kimi、Qwen、通义千问、豆包、Claude、OpenAI 等模型 API 价格',
-      pages: ['/deepseek-api-price/', '/kimi-api-price/', '/qwen-api-price/', '/doubao-api-price/', '/tongyi-qianwen-api-price/', '/claude-api-price/', '/gemini-api-price/']
+      pages: ['/deepseek-api-price/', '/kimi-api-price/', '/qwen-api-price/', '/doubao-api-price/', '/tongyi-qianwen-api-price/', '/claude-api-price/', '/claude-fable-5-api-jiage/', '/gemini-api-price/']
     },
     {
       id: 'image-api',
@@ -130,6 +130,7 @@ export const siteConfig = {
     { name: 'OpenClaw', href: '/ai-agent-token-cost/', description: 'Agent token 成本与工具调用结构' },
     { name: 'Kilo Code', href: '/ai-agent-token-cost/', description: 'Coding Agent 成本入口与小额测试' },
     { name: 'Cline / Cursor', href: '/ai-agent-token-cost/', description: '多轮循环、读取上下文和工具调用成本' },
+    { name: 'Claude Fable 5', href: '/claude-fable-5-api-jiage/', description: 'Claude Fable 5 input/output/cache 和各平台价格' },
     { name: 'DeepSeek', href: '/deepseek-api-price/', description: 'DeepSeek V3/R1 系列 API 价格' },
     { name: 'Qwen', href: '/qwen-api-price/', description: '通义千问 Qwen 系列 API 价格' },
     { name: '豆包', href: '/doubao-api-price/', description: '豆包 API 价格与可用模型' },
