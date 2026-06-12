@@ -53,7 +53,6 @@ export const pages: PageData[] = [
     ],
     updatedAt: '2026-06-05',
     internalLinks: ['/ai-agent-token-cost/', '/tool-call-koufei/', '/openrouter-yue/', '/small-budget-api-test/', '/claude-api-price/'],
-    externalConfigLink: { label: '进一步了解接入配置', url: 'https://aiapiradar.com/' },
     ctaEnabled: true,
     status: 'full'
   },
@@ -75,7 +74,6 @@ export const pages: PageData[] = [
     ],
     updatedAt: '2026-06-03',
     internalLinks: ['/claude-code-token-cost/', '/request-failed-billing/', '/small-budget-api-test/', '/openai-api-usage/'],
-    externalConfigLink: { label: '进一步了解接入配置', url: 'https://aiapiradar.com/' },
     ctaEnabled: true,
     status: 'full'
   },
@@ -97,7 +95,6 @@ export const pages: PageData[] = [
     ],
     updatedAt: '2026-06-05',
     internalLinks: ['/ai-video-api-price/', '/video-generation-api-cost/', '/image-to-video-api-cost/', '/keling-api-jiage/', '/jimeng-api-price/', '/video-generation-failed-billing/'],
-    externalConfigLink: { label: '进一步了解接入配置', url: 'https://aiapiradar.com/' },
     ctaEnabled: true,
     status: 'full'
   },
